@@ -1,0 +1,56 @@
+.host {
+  /* Default spotlight position before the first pointer move. */
+  --mx: 50%;
+  --my: 50%;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: conic-gradient(from 90deg at var(--px) var(--px), var(--col) 25%, transparent 0)
+    var(--off-x) var(--off-y) / var(--cell) var(--cell);
+  -webkit-mask-image: radial-gradient(
+    circle var(--r) at var(--mx) var(--my),
+    #000 35%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(circle var(--r) at var(--mx) var(--my), #000 35%, transparent 100%);
+}
+
+/* Footer: the spotlight is intersected with the filled logo. */
+.wordmark {
+  z-index: auto;
+  transition-duration: 0.4s;
+  -webkit-mask-image:
+    url('/images/techx-logo-white.png'),
+    radial-gradient(circle var(--r) at var(--mx) var(--my), #000 30%, transparent 100%);
+  -webkit-mask-size:
+    97.7% 91.8%,
+    100% 100%;
+  -webkit-mask-position:
+    center,
+    0 0;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    url('/images/techx-logo-white.png'),
+    radial-gradient(circle var(--r) at var(--mx) var(--my), #000 30%, transparent 100%);
+  mask-size:
+    97.7% 91.8%,
+    100% 100%;
+  mask-position:
+    center,
+    0 0;
+  mask-repeat: no-repeat;
+  mask-composite: intersect;
+}
+
+@media (hover: hover) {
+  .host:hover .layer {
+    opacity: var(--op);
+  }
+}

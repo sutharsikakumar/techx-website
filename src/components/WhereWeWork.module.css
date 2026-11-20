@@ -1,0 +1,44 @@
+.section {
+  padding: 0 var(--gutter) 180px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.wall {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  padding: 0 24px;
+}
+
+.cell img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-bottom: 120px;
+  }
+
+  .wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cell {
+    min-height: 88px;
+    padding: 0 16px;
+  }
+}
