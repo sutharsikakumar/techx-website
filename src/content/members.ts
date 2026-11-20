@@ -75,17 +75,61 @@ export const cohorts: Cohort[] = [
   {
     number: 7,
     members: [
-      { name: 'Eduard Pugachov', linkedin: '#' },
-      { name: 'Lillian Copplestone', linkedin: '#' },
-      { name: 'Maxamillian Karia', linkedin: '#' },
-      { name: 'Mokshashree Nemalipuri', linkedin: '#' },
-      { name: 'Robert McCallum', linkedin: '#' },
-      { name: 'Vihaan Kerekatte', linkedin: '#' },
-      { name: 'Yutian Gong', linkedin: '#' },
-      { name: 'Aditya Karthikeyan', linkedin: '#' },
-      { name: 'Colin Volpe', linkedin: '#' },
-      { name: 'Yadunand Sreelesh', linkedin: '#' },
-      { name: 'Jack Scutari', linkedin: '#' },
+      {
+        name: 'Eduard Pugachov',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/eduard.jpg',
+      },
+      {
+        name: 'Lillian Copplestone',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/lillian.png',
+      },
+      {
+        name: 'Maxamillian Karia',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/maxamillian.png',
+      },
+      {
+        name: 'Mokshashree Nemalipuri',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/mokshashree.png',
+      },
+      {
+        name: 'Robert McCallum',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/robert.png',
+      },
+      {
+        name: 'Vihaan Kerekatte',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/vihaan.png',
+      },
+      {
+        name: 'Yutian Gong',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/yutian.png',
+      },
+      {
+        name: 'Aditya Karthikeyan',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/aditya.png',
+      },
+      {
+        name: 'Colin Volpe',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/colin.jpg',
+      },
+      {
+        name: 'Yadunand Sreelesh',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/yadunand.jpg',
+      },
+      {
+        name: 'Jack Scutari',
+        linkedin: '#',
+        photo: '/images/members/cohort-7/jack.png',
+      },
     ],
   },
   {
