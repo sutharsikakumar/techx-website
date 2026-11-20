@@ -235,15 +235,51 @@ export const cohorts: Cohort[] = [
   {
     number: 4,
     members: [
-      { name: 'Alan Liu', linkedin: '#' },
-      { name: 'Nabiha Choudhury', linkedin: '#' },
-      { name: 'Sahil Kapadia', linkedin: '#' },
-      { name: 'Sven Reyes', linkedin: '#' },
-      { name: 'Lucas Moore', linkedin: '#' },
-      { name: 'Dmitrii Pavlov', linkedin: '#' },
-      { name: 'Krish Vazirani', linkedin: '#' },
-      { name: 'Harsehaj Dhami', linkedin: '#' },
-      { name: 'Caleb Free', linkedin: '#' },
+      {
+        name: 'Alan Liu',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/alan.jpg',
+      },
+      {
+        name: 'Nabiha Choudhury',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/nabiha.jpg',
+      },
+      {
+        name: 'Sahil Kapadia',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/sahil.jpg',
+      },
+      {
+        name: 'Sven Reyes',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/sven.jpg',
+      },
+      {
+        name: 'Lucas Moore',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/lucas.jpg',
+      },
+      {
+        name: 'Dmitrii Pavlov',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/dimitrii.jpg',
+      },
+      {
+        name: 'Krish Vazirani',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/krish.jpg',
+      },
+      {
+        name: 'Harsehaj Dhami',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/harsehaj.jpg',
+      },
+      {
+        name: 'Caleb Free',
+        linkedin: '#',
+        photo: '/images/members/cohort-4/caleb.jpg',
+      },
     ],
   },
   {
