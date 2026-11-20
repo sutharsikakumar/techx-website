@@ -73,7 +73,10 @@ export function buildBlockMask(img: HTMLImageElement): BlockMask {
  * Black cells drawn only over the blue blocks, where a left-to-right
  * flowing field plus the Bayer threshold falls below `amount`.
  */
-export function createHeroDraw(mask: BlockMask, amount = 0.2): DrawFn {
+/** Cursor state for the hero spotlight, in CSS px relative to the canvas. */
+export type Pointer = { x: number; y: number; target: number; strength: number };
+
+export function createHeroDraw(mask: BlockMask, amount = 0.2, pointer?: Pointer): DrawFn {
   let key = '';
   let cells = new Uint32Array(0);
 
@@ -104,6 +107,10 @@ export function createHeroDraw(mask: BlockMask, amount = 0.2): DrawFn {
     const list = cellsFor(cols, rows, info);
     const band = (((t * 0.07) % 1.6) - 0.3) * W;
     const bw = W * 0.28;
+    // Ease the spotlight in and out, so it fades rather than snapping.
+    if (pointer) pointer.strength += (pointer.target - pointer.strength) * 0.18;
+    const spot = pointer && pointer.strength > 0.01 ? pointer : null;
+    const SPOT_R = 190;
     for (let n = 0; n < list.length; n++) {
       const idx = list[n]!;
       const gx = idx % cols;
@@ -121,6 +128,15 @@ export function createHeroDraw(mask: BlockMask, amount = 0.2): DrawFn {
       v -= 0.2 * Math.exp(-db * db);
       // slight left-to-right gradient
       v += 0.12 * (x / W - 0.5);
+      // Cursor spotlight: push the value up near the pointer so the black cells clear
+      // away and the blue blocks light up underneath.
+      if (spot) {
+        const d = Math.hypot(x - spot.x, y - spot.y);
+        if (d < SPOT_R) {
+          const f = 1 - d / SPOT_R;
+          v += spot.strength * f * f * 1.8;
+        }
+      }
       if (v + (bayer(gx, gy) - 0.5) < amount) {
         const i = idx * 4;
         buf[i + 3] = 255; // RGB already 0: solid black

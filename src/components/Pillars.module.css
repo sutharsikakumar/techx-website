@@ -1,11 +1,11 @@
 .pillars {
-  padding: 48px var(--gutter) 88px;
+  padding: 28px var(--gutter) 52px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 12px;
 }
 
 .card {
@@ -91,7 +91,7 @@
 
 @media (max-width: 640px) {
   .pillars {
-    padding: 40px var(--gutter) 64px;
+    padding: 24px var(--gutter) 40px;
   }
 }
 

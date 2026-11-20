@@ -1,0 +1,20 @@
+.wrap {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}
+
+.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wrap {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

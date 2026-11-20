@@ -1,4 +1,7 @@
 import { whereWeWork, type Company } from '@/content';
+import type { CSSProperties } from 'react';
+import { Reveal } from './Reveal';
+import { SectionTitle } from './SectionTitle';
 import styles from './WhereWeWork.module.css';
 
 // Logos come in very different shapes (square marks vs long wordmarks). Sizing each to
@@ -20,20 +23,43 @@ function logoSize({ width, height, scale = 1 }: Company) {
   return { width: Math.round(w), height: Math.round(h) };
 }
 
+function logo(c: Company) {
+  // alt is empty when the link's aria-label already names the company
+  return (
+    <img src={c.logo} alt={c.href ? '' : c.name} {...logoSize(c)} loading="lazy" decoding="async" />
+  );
+}
+
 export function WhereWeWork() {
   return (
     <section id="where-we-work" className={styles.section} aria-labelledby="work-heading">
       <div className={`container ${styles.stack}`}>
-        <h2 id="work-heading" className="heading-xl">
-          {whereWeWork.heading}
-        </h2>
-        <ul className={styles.wall}>
-          {whereWeWork.companies.map((c) => (
-            <li key={c.name} className={styles.cell}>
-              <img src={c.logo} alt={c.name} {...logoSize(c)} loading="lazy" decoding="async" />
-            </li>
-          ))}
-        </ul>
+        <SectionTitle id="work-heading" text={whereWeWork.heading} />
+        <Reveal threshold={0.1}>
+          <ul className={styles.wall}>
+            {whereWeWork.companies.map((c, i) => (
+              <li
+                key={c.name}
+                className={styles.cell}
+                data-stagger
+                style={{ '--i': i } as CSSProperties}
+              >
+                {c.href ? (
+                  <a
+                    href={c.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${c.name} (opens in a new tab)`}
+                  >
+                    {logo(c)}
+                  </a>
+                ) : (
+                  <span>{logo(c)}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );

@@ -6,6 +6,7 @@
 }
 
 .nav {
+  animation: navIn 0.9s var(--ease-out) 0.5s both;
   max-width: calc(var(--container) + 2 * var(--gutter));
   margin: 0 auto;
   padding: 0 var(--gutter);
@@ -50,7 +51,8 @@
   transition: color 0.2s ease;
 }
 
-.link:hover {
+.link:hover,
+.link[aria-current='page'] {
   color: var(--cosmix);
 }
 
@@ -100,5 +102,26 @@
     font-size: 11px;
     letter-spacing: 0.12em;
     padding: 0 12px;
+  }
+}
+
+@keyframes navIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cta:hover {
+  box-shadow: 0 0 28px rgb(56 182 255 / 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav {
+    animation: none;
   }
 }

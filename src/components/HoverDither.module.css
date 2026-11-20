@@ -21,6 +21,12 @@
   mask-image: radial-gradient(circle var(--r) at var(--mx) var(--my), #000 35%, transparent 100%);
 }
 
+/* Member tiles: layers sit over the photo. */
+.tile {
+  z-index: 1;
+  transition-duration: 0.3s;
+}
+
 /* Footer: the spotlight is intersected with the filled logo. */
 .wordmark {
   z-index: auto;
@@ -52,5 +58,12 @@
 @media (hover: hover) {
   .host:hover .layer {
     opacity: var(--op);
+  }
+}
+
+/* Reduced motion: no cursor-following dither on member tiles. */
+@media (prefers-reduced-motion: reduce) {
+  .host:hover .tile {
+    opacity: 0;
   }
 }

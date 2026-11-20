@@ -1,0 +1,11 @@
+.bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--cosmix);
+  box-shadow: 0 0 12px var(--cosmix);
+  pointer-events: none;
+}

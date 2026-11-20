@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Footer } from './Footer';
 import { Header } from './Header';
+import { SectionTitle } from './SectionTitle';
 import styles from './StubPage.module.css';
 
 /** Shared layout for pages that aren't built yet. */
@@ -11,7 +12,7 @@ export function StubPage({ heading, note }: { heading: string; note: string }) {
         <section className={styles.banner}>
           <Header />
           <div className={`container ${styles.bannerInner}`}>
-            <h1 className={`heading-xl ${styles.heading}`}>{heading}</h1>
+            <SectionTitle as="h1" text={heading} className={styles.heading} />
           </div>
         </section>
         <section className={styles.body}>

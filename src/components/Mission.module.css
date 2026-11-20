@@ -1,12 +1,12 @@
 .mission {
-  padding: 88px var(--gutter) 0;
+  padding: 56px var(--gutter) 0;
   scroll-margin-top: 24px;
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px 64px;
+  gap: 16px 64px;
 }
 
 .heading {
@@ -20,7 +20,7 @@
 
 @media (max-width: 640px) {
   .mission {
-    padding-top: 64px;
+    padding-top: 40px;
   }
 
   .heading,

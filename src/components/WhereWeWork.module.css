@@ -1,12 +1,12 @@
 .section {
   background: var(--ash);
-  padding: 72px var(--gutter) 80px;
+  padding: 44px var(--gutter) 48px;
 }
 
 .stack {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 16px;
 }
 
 .wall {
@@ -20,28 +20,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 72px;
+  min-height: 60px;
   padding: 0 16px;
 }
 
-.cell img {
-  max-width: 100%;
-  height: auto;
-  /* Logo files have white backgrounds; multiply lets the Ash show through. */
-  mix-blend-mode: multiply;
+.cell a,
+.cell > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 100%;
+  min-height: 56px;
+  text-decoration: none;
 }
 
-@media (max-width: 640px) {
-  .section {
-    padding: 56px var(--gutter) 64px;
-  }
+.cell img {
+  transition: transform 0.25s var(--ease-out);
+}
 
-  .wall {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+/* Hovering a logo lifts it just a little. */
+@media (hover: hover) {
+  .cell a:hover img,
+  .cell a:focus-visible img {
+    transform: translateY(-4px);
   }
+}
 
-  .cell {
-    min-height: 64px;
-    padding: 0 12px;
+@media (prefers-reduced-motion: reduce) {
+  .cell img {
+    transition: none;
   }
 }

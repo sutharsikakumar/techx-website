@@ -38,13 +38,15 @@ If you deploy on a host such as Vercel or Netlify, set the same variables in its
 | To change… | Edit in `content.ts` |
 |---|---|
 | Nav links | `nav` |
+| Landing intro text (the statement and the Latin motto) | `heroStory` (timing lives in `src/components/Hero.tsx`) |
 | Mission heading and paragraph | `mission` |
 | Lyceum / Professional Development / Community cards | `pillars` |
 | Community photo strip | `community.photos` |
 | Startup tiles | `built` |
 | Company logo wall | `whereWeWork.companies` |
 | Footer social labels and links | `footer` and `links` |
-| Members / Executive Team placeholder text | `stubPages` |
+| Executive Team placeholder text | `stubPages` |
+| Member directory | [`src/content/members.ts`](src/content/members.ts) (see below) |
 
 ## Where files live
 
@@ -54,8 +56,9 @@ public/                      everything the website serves (committed)
   images/
     brand/                   TechX logos (white, outline) and the hero block-field
     startups/                square startup tiles: brightstar, swarm, lintel, speedi
-    companies/               cropped logos for the "Where we work" wall
+    companies/               cropped logos for the Work section's logo wall
     community/               web-sized photos for the scrolling strip (~640px tall)
+    members/cohort-{n}/      member headshots for /members, one folder per cohort
 source-assets/               local only, git-ignored (big originals, design files)
   community-originals/       full-size photos
   company-logos-original/    original logo files
@@ -67,6 +70,23 @@ src/                         the code (see "How it's built")
 Only `public/` ships with the site. `source-assets/` stays on your machine: it holds
 over 100 MB of originals that shouldn't go into git. Its README is the only committed file.
 
+## Adding a member
+
+The directory on `/members` is built from [`src/content/members.ts`](src/content/members.ts).
+
+1. **Photo (optional):** save a portrait headshot as
+   `public/images/members/cohort-{n}/{first-last}.jpg`, e.g. `public/images/members/cohort-8/jane-doe.jpg`.
+   It's shown cropped to 4:5, so keep the face centred; about 600×750 and under ~150 KB is plenty.
+   Use lowercase, hyphenated filenames.
+2. **Entry:** in `members.ts`, find the cohort (`number: 8` is Cohort VIII, `number: 0` is Cohort 0) and add to its `members` list:
+   ```ts
+   { name: 'Jane Doe', linkedin: 'https://www.linkedin.com/in/janedoe', photo: '/images/members/cohort-8/jane-doe.jpg' },
+   ```
+   - `name`: full name, shown under the tile.
+   - `linkedin`: full profile URL. The tile links here in a new tab.
+   - `photo`: leave it out to show the placeholder silhouette.
+3. **New cohort:** add `{ number: 9, members: [ ... ] }` anywhere in the list. The page sorts cohorts newest first and writes the Roman numeral itself.
+
 ## Swapping images
 
 - **Community photos:** put a web-sized copy (about 640px tall, JPEG, under ~250 KB; phone photos are often 5-10 MB and would slow the page down) in `public/images/community/`, keep the full-size one in `source-assets/community-originals/`, and add an entry to `community.photos` in `content.ts`:
@@ -74,8 +94,8 @@ over 100 MB of originals that shouldn't go into git. Its README is the only comm
   { src: '/images/community/kickoff.jpg', alt: 'Members at the fall kickoff', width: 1137, height: 640 },
   ```
   `width` and `height` are the photo's real pixel size, used to reserve space so nothing jumps while photos load. The scroll speed adjusts automatically to the number of photos. The text beside the heading is `community.body`. Visitors can move the strip by hand (click and drag, swipe on touch, horizontal trackpad scroll, or arrow keys); it pauses while they do and resumes drifting about 2 seconds after they stop.
-- **Startup tiles:** add or change entries in `built.startups` (square images in `public/images/startups/`, about 1000×1000). An entry with an `href` is a clickable tile; one without shows as a plain image.
-- **Company logos:** these are in `public/images/companies/`, cropped to the logo artwork with no extra whitespace. Use lowercase, hyphenated filenames: some web hosts are case-sensitive, and `Plaid.png` would not match `plaid.png` there. To add one, drop in a PNG cropped the same way, add `{ name, logo, width, height }` to `whereWeWork.companies` in alphabetical order, and use the file's pixel size. Each logo is automatically sized to roughly the same visual weight; add `scale: 1.3` (or similar) to an entry if its logo looks too small. Keep the uncropped original in `source-assets/company-logos-original/`.
+- **Startup tiles:** add or change entries in `built.startups` (images in `public/images/startups/`, about 1000×1000 (shown cropped to 4:3, so keep the logo centred)). An entry with an `href` is a clickable tile; one without shows as a plain image.
+- **Company logos:** these are in `public/images/companies/`, cropped to the logo artwork with no extra whitespace. Use lowercase, hyphenated filenames: some web hosts are case-sensitive, and `Plaid.png` would not match `plaid.png` there. To add one, drop in a PNG cropped the same way, add `{ name, logo, width, height }` to `whereWeWork.companies` at the right spot (the list runs from most to least impressive for SWE/ML, left to right), and use the file's pixel size. Each logo is automatically sized to roughly the same visual weight; add `scale: 1.3` (or similar) to an entry if its logo looks too small. Keep the uncropped original in `source-assets/company-logos-original/`.
 - **Hero background** (`brand/techx-blockfield.png`): the hero ripple animation reads this image to work out where the blue blocks are, so if you replace it the animation follows the new image automatically. Keep the blocks on a black background.
 - **Logos:** `brand/techx-logo-white.png` is used in the header and hero and as the footer fill mask. `brand/techx-logo-outline.png` is the footer outline. Keep both at the same aspect ratio as now.
 

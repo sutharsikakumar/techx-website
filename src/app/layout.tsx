@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 import { site } from '@/content';
+import { ScrollProgress } from '@/components/ScrollProgress';
 import './globals.css';
 
 // Self-hosted from /public/fonts. next/font adds size-adjusted fallback metrics,
@@ -33,8 +34,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         {/* Without JS the scroll-reveal never fires, so show everything. */}
         <noscript>
-          <style>{'.reveal,[data-reveal]{opacity:1!important;transform:none!important}'}</style>
+          <style>
+            {
+              '.reveal,[data-reveal],[data-stagger],[data-hero-text],[data-hero-text] span{opacity:1!important;transform:none!important;filter:none!important}[data-hero]{height:auto!important}[data-hero-story]{position:relative!important;inset:auto!important}'
+            }
+          </style>
         </noscript>
+        <ScrollProgress />
         {children}
       </body>
     </html>

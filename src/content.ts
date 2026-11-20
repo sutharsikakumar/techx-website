@@ -27,6 +27,15 @@ export const site = {
     'TechX is a society of UNC Chapel Hill students devoted to the craft of building technical systems.',
 };
 
+/* ------------------------------------------------------------------ */
+/* Landing intro (plays as you scroll: logo zooms in, then these lines) */
+/* ------------------------------------------------------------------ */
+
+export const heroStory = {
+  statement: 'We back the minds shaping the future.',
+  motto: 'Via ad Excellentiam',
+};
+
 /** The button at the right end of the header. Its link is `links.rushForm`. */
 export const navCta = { label: 'Join Spring Rush' };
 
@@ -65,7 +74,7 @@ export const pillars: { title: string; body: string }[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Our community                                                       */
+/* Community                                                           */
 /* Add photos to /public/images/community/ and list them below.        */
 /* Every photo is shown 300px tall. Give its real pixel width/height   */
 /* so the strip doesn't jump while photos load.                        */
@@ -74,8 +83,12 @@ export const pillars: { title: string; body: string }[] = [
 
 export type CommunityPhoto = { src: string; alt: string; width: number; height: number };
 
-export const community: { heading: string; body: string; photos: CommunityPhoto[] } = {
-  heading: 'Our community',
+export const community: {
+  heading: string;
+  body: string;
+  photos: CommunityPhoto[];
+} = {
+  heading: 'Community',
   body: 'The life of the Society extends beyond the work we do together. From retreats away from campus to gatherings throughout the year, we make time to get to know the people we build with, welcome new members, and carry forward the traditions that make TechX our own.',
   photos: [
     {
@@ -220,34 +233,41 @@ export const community: { heading: string; body: string; photos: CommunityPhoto[
 };
 
 /* ------------------------------------------------------------------ */
-/* What we've built                                                    */
+/* Building                                                            */
 /* ------------------------------------------------------------------ */
 
 export const built: {
   heading: string;
+  body: string;
   startups: { name: string; href?: string; image: string }[];
 } = {
-  heading: "What we've built",
+  heading: 'Building',
+  body: 'Startups founded by TechX members have a combined valuation of over $100M and are backed by leading venture capital firms.',
   startups: [
+    { name: 'Juno', href: 'https://www.juno.co/', image: '/images/startups/juno.jpg' },
+    { name: 'Speedi', href: 'https://www.speedi.delivery/', image: '/images/startups/speedi.jpg' },
+    { name: 'Swarm', href: 'https://www.useswarm.co/', image: '/images/startups/swarm.jpg' },
+    { name: 'Lintel', href: 'https://www.uselintel.com/', image: '/images/startups/lintel.jpg' },
     {
       name: 'Brightstar Ventures',
       href: 'https://www.linkedin.com/company/brightstar-ventures/home/',
       image: '/images/startups/brightstar.jpg',
     },
-    { name: 'Swarm', href: 'https://www.useswarm.co/', image: '/images/startups/swarm.jpg' },
-    { name: 'Lintel', href: 'https://www.uselintel.com/', image: '/images/startups/lintel.jpg' },
-    { name: 'Speedi', href: 'https://www.speedi.delivery/', image: '/images/startups/speedi.jpg' },
   ],
 };
 
 /* ------------------------------------------------------------------ */
-/* Where we work                                                       */
+/* Work                                                                 */
 /* Logos live in /public/images/companies/ (cropped to the artwork).   */
-/* width/height are the file's pixel size. Keep the list alphabetical. */
+/* href is the company's website (opens in a new tab). width/height are the    */
+/* file's pixel size. The list is ordered from most to                         */
+/* least impressive for SWE / ML rigor: the wall reads left to right.         */
 /* ------------------------------------------------------------------ */
 
 export type Company = {
   name: string;
+  /** The company's website. Leave out to show the logo without a link. */
+  href?: string;
   logo: string;
   width: number;
   height: number;
@@ -256,49 +276,253 @@ export type Company = {
 };
 
 export const whereWeWork: { heading: string; companies: Company[] } = {
-  heading: 'Where we work',
+  heading: 'Work',
   companies: [
-    { name: 'Amazon', logo: '/images/companies/amazon.png', width: 600, height: 181 },
-    { name: 'Aseon Labs', logo: '/images/companies/aseon-labs.png', width: 600, height: 52 },
-    { name: 'Aven', logo: '/images/companies/aven.png', width: 600, height: 228 },
-    { name: 'AWS', logo: '/images/companies/aws.png', width: 360, height: 240 },
-    { name: 'BCG X', logo: '/images/companies/bcg-x.png', width: 590, height: 240 },
-    { name: 'Browserbase', logo: '/images/companies/browserbase.png', width: 600, height: 119 },
-    { name: 'CERN', logo: '/images/companies/cern.png', width: 207, height: 205, scale: 1.35 },
-    {
-      name: 'Citadel Securities',
-      logo: '/images/companies/citadel-securities.png',
-      width: 600,
-      height: 47,
-    },
-    { name: 'Contrary', logo: '/images/companies/contrary.png', width: 600, height: 95 },
-    { name: 'Datadog', logo: '/images/companies/datadog.png', width: 240, height: 240 },
-    { name: 'Deloitte', logo: '/images/companies/deloitte.png', width: 600, height: 113 },
-    { name: 'Fidelity', logo: '/images/companies/fidelity.png', width: 600, height: 133 },
-    { name: 'Forus', logo: '/images/companies/forus.png', width: 600, height: 162 },
     {
       name: 'Google DeepMind',
+      href: 'https://deepmind.google/',
       logo: '/images/companies/google-deepmind.png',
       width: 600,
       height: 75,
     },
-    { name: 'Infragrid', logo: '/images/companies/infragrid.png', width: 600, height: 123 },
-    { name: 'JP Morgan', logo: '/images/companies/jp-morgan.png', width: 600, height: 122 },
-    { name: 'Lenovo', logo: '/images/companies/lenovo.png', width: 600, height: 194 },
+    {
+      name: 'Stripe',
+      href: 'https://stripe.com/',
+      logo: '/images/companies/stripe.png',
+      width: 578,
+      height: 240,
+    },
+    {
+      name: 'Citadel Securities',
+      href: 'https://www.citadelsecurities.com/',
+      logo: '/images/companies/citadel-securities.png',
+      width: 600,
+      height: 47,
+    },
+    {
+      name: 'Palantir',
+      href: 'https://www.palantir.com/',
+      logo: '/images/companies/palantir.png',
+      width: 600,
+      height: 146,
+    },
+    {
+      name: 'Meta',
+      href: 'https://about.meta.com/',
+      logo: '/images/companies/meta.png',
+      width: 600,
+      height: 121,
+    },
+    {
+      name: 'CERN',
+      href: 'https://home.cern/',
+      logo: '/images/companies/cern.png',
+      width: 207,
+      height: 205,
+      scale: 1.35,
+    },
+    {
+      name: 'Datadog',
+      href: 'https://www.datadoghq.com/',
+      logo: '/images/companies/datadog.png',
+      width: 240,
+      height: 240,
+    },
+    {
+      name: 'Robinhood',
+      href: 'https://robinhood.com/',
+      logo: '/images/companies/robinhood.png',
+      width: 179,
+      height: 240,
+    },
+    {
+      name: 'Microsoft',
+      href: 'https://www.microsoft.com/',
+      logo: '/images/companies/microsoft.png',
+      width: 600,
+      height: 128,
+    },
+    {
+      name: 'Amazon',
+      href: 'https://www.amazon.com/',
+      logo: '/images/companies/amazon.png',
+      width: 600,
+      height: 181,
+    },
+    {
+      name: 'AWS',
+      href: 'https://aws.amazon.com/',
+      logo: '/images/companies/aws.png',
+      width: 360,
+      height: 240,
+    },
+    {
+      name: 'Plaid',
+      href: 'https://plaid.com/',
+      logo: '/images/companies/plaid.png',
+      width: 600,
+      height: 226,
+    },
+    {
+      name: 'Point72',
+      href: 'https://point72.com/',
+      logo: '/images/companies/point72.png',
+      width: 600,
+      height: 210,
+    },
+    {
+      name: 'Browserbase',
+      href: 'https://www.browserbase.com/',
+      logo: '/images/companies/browserbase.png',
+      width: 600,
+      height: 119,
+    },
+    {
+      name: 'Aven',
+      href: 'https://www.aven.com/',
+      logo: '/images/companies/aven.png',
+      width: 600,
+      height: 228,
+    },
     {
       name: 'Lucid Software',
+      href: 'https://lucid.co/',
       logo: '/images/companies/lucid-software.png',
       width: 600,
       height: 149,
     },
-    { name: 'Meta', logo: '/images/companies/meta.png', width: 600, height: 121 },
-    { name: 'Microsoft', logo: '/images/companies/microsoft.png', width: 600, height: 128 },
-    { name: 'Plaid', logo: '/images/companies/plaid.png', width: 600, height: 226 },
-    { name: 'Point72', logo: '/images/companies/point72.png', width: 600, height: 210 },
-    { name: 'SAS', logo: '/images/companies/sas.png', width: 570, height: 240 },
-    { name: 'Stripe', logo: '/images/companies/stripe.png', width: 578, height: 240 },
-    { name: 'Tanium', logo: '/images/companies/tanium.png', width: 600, height: 108 },
-    { name: 'Toshiba', logo: '/images/companies/toshiba.png', width: 600, height: 91 },
+    {
+      name: 'Tanium',
+      href: 'https://www.tanium.com/',
+      logo: '/images/companies/tanium.png',
+      width: 600,
+      height: 108,
+    },
+    {
+      name: 'Cisco',
+      href: 'https://www.cisco.com/',
+      logo: '/images/companies/cisco.png',
+      width: 455,
+      height: 240,
+    },
+    {
+      name: 'NetApp',
+      href: 'https://www.netapp.com/',
+      logo: '/images/companies/netapp.png',
+      width: 600,
+      height: 108,
+    },
+    {
+      name: 'Credit Karma',
+      href: 'https://www.creditkarma.com/',
+      logo: '/images/companies/credit-karma.png',
+      width: 600,
+      height: 88,
+    },
+    {
+      name: 'Contrary',
+      href: 'https://contrary.com/',
+      logo: '/images/companies/contrary.png',
+      width: 600,
+      height: 95,
+    },
+    {
+      name: 'Aseon Labs',
+      href: 'https://www.aseonlabs.com/',
+      logo: '/images/companies/aseon-labs.png',
+      width: 600,
+      height: 52,
+    },
+    {
+      name: 'Butterbase AI',
+      logo: '/images/companies/butterbase-ai.png',
+      width: 600,
+      height: 126,
+    },
+    {
+      name: 'Infragrid',
+      href: 'https://infragrid.ai/',
+      logo: '/images/companies/infragrid.png',
+      width: 600,
+      height: 123,
+    },
+    {
+      name: 'Forus',
+      href: 'https://www.forus.com/',
+      logo: '/images/companies/forus.png',
+      width: 600,
+      height: 162,
+    },
+    {
+      name: 'JP Morgan',
+      href: 'https://www.jpmorganchase.com/',
+      logo: '/images/companies/jp-morgan.png',
+      width: 600,
+      height: 122,
+    },
+    {
+      name: 'BCG X',
+      href: 'https://www.bcg.com/x',
+      logo: '/images/companies/bcg-x.png',
+      width: 590,
+      height: 240,
+    },
+    {
+      name: 'Wells Fargo',
+      href: 'https://www.wellsfargo.com/',
+      logo: '/images/companies/wells-fargo.png',
+      width: 222,
+      height: 240,
+    },
+    {
+      name: 'Lenovo',
+      href: 'https://www.lenovo.com/',
+      logo: '/images/companies/lenovo.png',
+      width: 600,
+      height: 194,
+    },
+    {
+      name: 'SAS',
+      href: 'https://www.sas.com/',
+      logo: '/images/companies/sas.png',
+      width: 570,
+      height: 240,
+    },
+    {
+      name: 'Toshiba',
+      href: 'https://www.global.toshiba/',
+      logo: '/images/companies/toshiba.png',
+      width: 600,
+      height: 91,
+    },
+    {
+      name: 'USAA',
+      href: 'https://www.usaa.com/',
+      logo: '/images/companies/usaa.png',
+      width: 233,
+      height: 240,
+    },
+    {
+      name: 'Deloitte',
+      href: 'https://www.deloitte.com/',
+      logo: '/images/companies/deloitte.png',
+      width: 600,
+      height: 113,
+    },
+    {
+      name: 'Fidelity',
+      href: 'https://www.fidelity.com/',
+      logo: '/images/companies/fidelity.png',
+      width: 600,
+      height: 133,
+    },
+    {
+      name: 'LPL Financial',
+      href: 'https://www.lpl.com/',
+      logo: '/images/companies/lpl-financial.png',
+      width: 504,
+      height: 65,
+    },
   ],
 };
 
@@ -316,10 +540,6 @@ export const footer = {
 /* ------------------------------------------------------------------ */
 
 export const stubPages = {
-  members: {
-    heading: 'Members',
-    note: 'The member directory is coming soon.',
-  },
   executiveTeam: {
     heading: 'Executive Team',
     note: 'Meet the people who run TechX. This page is coming soon.',

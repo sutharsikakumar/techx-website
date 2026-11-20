@@ -40,7 +40,7 @@ export function HoverDither({
   variant = 'card',
 }: {
   layers: DitherLayer[];
-  variant?: 'card' | 'wordmark';
+  variant?: 'card' | 'wordmark' | 'tile';
 }) {
   return (
     <>
@@ -48,7 +48,7 @@ export function HoverDither({
         <span
           key={i}
           aria-hidden="true"
-          className={`${styles.layer} ${variant === 'wordmark' ? styles.wordmark : ''}`}
+          className={`${styles.layer} ${variant === 'card' ? '' : styles[variant]}`}
           style={
             {
               '--px': `${l.px}px`,

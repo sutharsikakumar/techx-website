@@ -2,6 +2,8 @@ import type { CSSProperties } from 'react';
 import { community } from '@/content';
 import styles from './Community.module.css';
 import { Marquee } from './Marquee';
+import { Reveal } from './Reveal';
+import { SectionTitle } from './SectionTitle';
 
 // Placeholder tiles from the design, shown until real photos are added in content.ts.
 const PLACEHOLDER_WIDTHS = [420, 300, 360, 480, 320, 400, 300, 440];
@@ -26,7 +28,7 @@ const PLACEHOLDER_INKS = [
   'var(--storm)',
 ];
 
-const TILE_HEIGHT = 240;
+const TILE_HEIGHT = 210;
 
 function Tiles({ copy }: { copy: boolean }) {
   // The second copy only exists to make the loop seamless, so hide it from screen readers.
@@ -79,17 +81,17 @@ export function Community() {
   return (
     <section id="community" className={styles.community} aria-labelledby="community-heading">
       <div className={styles.head}>
-        <h2 id="community-heading" className={`heading-xl ${styles.heading}`}>
-          {community.heading}
-        </h2>
+        <SectionTitle id="community-heading" text={community.heading} className={styles.heading} />
         <p className={`lede ${styles.body}`}>{community.body}</p>
       </div>
-      <Marquee speed={SCROLL_PX_PER_SEC} label="Community photos. Drag or swipe to move.">
-        <ul className={styles.marquee}>
-          <Tiles copy={false} />
-          <Tiles copy />
-        </ul>
-      </Marquee>
+      <Reveal className={styles.strip} threshold={0.1}>
+        <Marquee speed={SCROLL_PX_PER_SEC} label="Community photos. Drag or swipe to move.">
+          <ul className={styles.marquee}>
+            <Tiles copy={false} />
+            <Tiles copy />
+          </ul>
+        </Marquee>
+      </Reveal>
     </section>
   );
 }

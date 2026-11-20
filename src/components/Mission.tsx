@@ -2,6 +2,7 @@
 
 import { mission } from '@/content';
 import { useInView } from '@/hooks/useInView';
+import { SectionTitle } from './SectionTitle';
 import styles from './Mission.module.css';
 
 export function Mission() {
@@ -14,9 +15,7 @@ export function Mission() {
       aria-labelledby="mission-heading"
     >
       <div className={`container ${styles.row}`}>
-        <h2 id="mission-heading" className={`heading-xl reveal ${styles.heading}`}>
-          {mission.heading}
-        </h2>
+        <SectionTitle id="mission-heading" text={mission.heading} className={styles.heading} />
         <p className={`lede reveal reveal-delay ${styles.body}`}>{mission.body}</p>
       </div>
     </section>

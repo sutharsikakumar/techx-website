@@ -1,11 +1,28 @@
 .built {
-  padding: 72px var(--gutter) 72px;
+  padding: 44px var(--gutter) 48px;
 }
 
 .stack {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
+}
+
+/* Heading and description side by side, matching Community. */
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 64px;
+  align-items: flex-start;
+}
+
+.heading {
+  flex: 1 1 380px;
+}
+
+.body {
+  flex: 1.3 1 460px;
+  margin-top: 6px;
 }
 
 .row {
@@ -21,59 +38,48 @@
   flex: 1 1 760px;
   display: grid;
   grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
-  gap: 16px;
+  gap: 12px;
 }
 
 .startup {
   position: relative;
   display: block;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
+  border-radius: 16px;
   background: var(--obsidian);
 }
 
 .startup img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s var(--ease-out);
 }
 
-.link:hover img,
-.link:focus-visible img {
-  transform: scale(1.03);
+/* Linked tiles grow a little on hover/focus; clicking opens the site. */
+.link {
+  transition: transform 0.3s var(--ease-out);
 }
 
-.visit {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--alice);
-  color: var(--obsidian);
-  font-size: 20px;
-  font-weight: 700;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+.link:hover,
+.link:focus-visible {
+  transform: scale(1.04);
 }
 
-.link:hover .visit,
-.link:focus-visible .visit {
-  opacity: 1;
-  transform: none;
+.link:focus-visible {
+  outline: 2px solid var(--cosmix);
+  outline-offset: 3px;
 }
 
 @media (max-width: 640px) {
+  .heading,
+  .body {
+    flex-basis: 100%;
+  }
+
   .built {
-    padding: 56px var(--gutter);
+    padding: 36px var(--gutter);
   }
 
   .tiles {
@@ -83,8 +89,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .startup img,
-  .visit {
+  .link {
     transition: none;
+  }
+
+  .link:hover,
+  .link:focus-visible {
+    transform: none;
   }
 }

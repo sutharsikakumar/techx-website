@@ -3,7 +3,7 @@ import { links, nav, navCta } from '@/content';
 import styles from './Header.module.css';
 
 /** Transparent header that sits over the hero and scrolls away with it. */
-export function Header() {
+export function Header({ current }: { current?: string } = {}) {
   return (
     <header className={styles.header}>
       <nav aria-label="Main" className={styles.nav}>
@@ -19,7 +19,11 @@ export function Header() {
         <ul className={styles.links}>
           {nav.map((item) => (
             <li key={item.href}>
-              <Link href={item.href} className={styles.link}>
+              <Link
+                href={item.href}
+                className={styles.link}
+                aria-current={item.href === current ? 'page' : undefined}
+              >
                 {item.label}
               </Link>
             </li>

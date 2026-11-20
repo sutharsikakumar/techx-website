@@ -1,7 +1,7 @@
 .footer {
   background: var(--obsidian);
   color: var(--alice);
-  padding: 80px var(--gutter) 0;
+  padding: 44px var(--gutter) 0;
   overflow: hidden;
 }
 
@@ -33,7 +33,7 @@
 .wordmark {
   position: relative;
   max-width: 1100px;
-  margin: 64px auto -1%;
+  margin: 36px auto -1%;
   aspect-ratio: 2088 / 588;
 }
 
@@ -58,7 +58,7 @@
 
 @media (max-width: 640px) {
   .footer {
-    padding-top: 56px;
+    padding-top: 36px;
   }
 
   .socials {
@@ -67,6 +67,6 @@
   }
 
   .wordmark {
-    margin-top: 48px;
+    margin-top: 28px;
   }
 }

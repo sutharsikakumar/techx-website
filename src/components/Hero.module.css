@@ -1,15 +1,34 @@
+/* The section is tall so there is room to scroll through the intro;
+   the stage inside it stays pinned to the screen meanwhile. */
 .hero {
   position: relative;
+  height: 320vh;
+  height: 320svh;
+  background: var(--black);
+}
+
+.stage {
+  position: sticky;
+  top: 0;
   /* Fill the whole viewport on any screen. svh keeps phones' toolbars from cutting it off. */
   height: 100vh;
   height: 100svh;
   min-height: 560px;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--gutter);
+}
+
+/* Block field + dither canvas, scaled together so they stay aligned during the zoom. */
+.field {
+  position: absolute;
+  inset: 0;
   background: var(--black) url('/images/brand/techx-blockfield.png') 50% 0 / auto 130% no-repeat;
+  transform: scale(var(--field-scale, 1));
+  will-change: transform;
 }
 
 .canvas {
@@ -20,6 +39,15 @@
   image-rendering: pixelated;
 }
 
+/* Darkens the field as the logo zooms away, so the story text reads cleanly. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--black);
+  opacity: var(--scrim, 0);
+  pointer-events: none;
+}
+
 .inner {
   position: relative;
   z-index: 1;
@@ -28,16 +56,188 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 48px;
+  transform: scale(var(--logo-scale, 1));
+  opacity: var(--logo-op, 1);
+  will-change: transform, opacity;
 }
 
 .title img {
   width: 100%;
   height: auto;
+  /* wipe the logo in left to right, then let a CosmiX aura breathe around it */
+  animation:
+    logoIn 1.3s var(--ease-out) 0.15s both,
+    aura 4.5s ease-in-out 1.5s infinite;
 }
 
-@media (max-width: 640px) {
-  .inner {
-    gap: 36px;
+@keyframes logoIn {
+  from {
+    opacity: 0;
+    clip-path: inset(-80px 100% -80px -80px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(-80px);
+    filter: blur(0);
+  }
+}
+
+@keyframes aura {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgb(56 182 255 / 0.12));
+  }
+  50% {
+    filter: drop-shadow(0 0 28px rgb(56 182 255 / 0.6));
+  }
+}
+
+/* ---- story lines ---- */
+
+.story {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 40px);
+  padding: var(--gutter);
+  pointer-events: none;
+  text-align: center;
+  color: var(--alice);
+}
+
+.statement {
+  max-width: 16ch;
+  font-size: clamp(32px, 5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+/* each word fades, rises and sharpens in turn as --s goes 0 → 1 */
+.statement span {
+  --w: clamp(0, calc(var(--s, 0) * (var(--n) + 2) - var(--i)), 1);
+  display: inline-block;
+  white-space: pre;
+  opacity: var(--w);
+  transform: translateY(calc((1 - var(--w)) * 22px));
+  filter: blur(calc((1 - var(--w)) * 8px));
+}
+
+/* Latin motto: fades in under the statement, then a highlight sweeps across it */
+.motto {
+  font-size: clamp(22px, 3vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  opacity: var(--motto-op, 0);
+  transform: translateY(var(--motto-y, 22px));
+  filter: blur(var(--motto-blur, 8px));
+}
+
+.motto em {
+  padding: 0.08em 0.35em;
+  font-style: italic;
+  color: color-mix(in srgb, var(--obsidian) calc(var(--motto-hl, 0) * 100%), var(--alice));
+  background: linear-gradient(var(--cosmix), var(--cosmix)) no-repeat left center /
+    calc(var(--motto-hl, 0) * 100%) 100%;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ---- scroll hint ---- */
+
+.hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+  opacity: var(--hint, 1);
+  color: var(--alice);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.hint i {
+  position: relative;
+  width: 1px;
+  height: 36px;
+  overflow: hidden;
+  background: rgb(240 248 255 / 0.2);
+}
+
+.hint i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--cosmix);
+  animation: drip 1.8s var(--ease-out) infinite;
+}
+
+@keyframes drip {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* ---- reduced motion (set by JS): one static screen, no pinning ---- */
+
+.hero[data-static] {
+  height: auto;
+}
+
+.hero[data-static] .stage {
+  position: relative;
+  gap: 36px;
+}
+
+.hero[data-static] .story {
+  position: relative;
+  inset: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+}
+
+.hero[data-static] .statement span,
+.hero[data-static] .motto {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.hero[data-static] .statement {
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+.hero[data-static] .motto {
+  --motto-hl: 1;
+  font-size: clamp(18px, 2.2vw, 26px);
+}
+
+.hero[data-static] .hint {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title img,
+  .hint i::after {
+    animation: none;
   }
 }
