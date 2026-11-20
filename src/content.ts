@@ -467,6 +467,13 @@ export const whereWeWork: { heading: string; body: string; companies: Company[] 
       height: 162,
     },
     {
+      name: 'Capital One',
+      href: 'https://www.capitalone.com/',
+      logo: '/images/companies/c1.svg.webp',
+      width: 3840,
+      height: 1378,
+    },
+    {
       name: 'JP Morgan',
       href: 'https://www.jpmorganchase.com/',
       logo: '/images/companies/jp-morgan.png',
@@ -486,6 +493,13 @@ export const whereWeWork: { heading: string; body: string; companies: Company[] 
       logo: '/images/companies/wells-fargo.png',
       width: 222,
       height: 240,
+    },
+    {
+      name: 'Truist',
+      href: 'https://www.truist.com/',
+      logo: '/images/companies/truist.webp',
+      width: 3840,
+      height: 891,
     },
     {
       name: 'Lenovo',

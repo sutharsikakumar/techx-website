@@ -160,7 +160,7 @@ export const cohorts: Cohort[] = [
       },
       {
         name: 'Aryan Gera',
-        linkedin: '#',
+        linkedin: 'https://www.linkedin.com/in/aryangera',
         photo: '/images/members/cohort-6/aryan.jpg',
       },
       {
