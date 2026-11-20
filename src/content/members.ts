@@ -135,14 +135,46 @@ export const cohorts: Cohort[] = [
   {
     number: 6,
     members: [
-      { name: 'Ananya Valati', linkedin: '#' },
-      { name: 'Joseph Sabo', linkedin: '#' },
-      { name: 'Riya Jain', linkedin: '#' },
-      { name: 'Wakeland Branz', linkedin: '#' },
-      { name: 'Aryan Gera', linkedin: '#' },
-      { name: 'Xiyuan Shen', linkedin: '#' },
-      { name: 'Alexandre Tourneux', linkedin: '#' },
-      { name: 'Meghana Kanamurlapudi', linkedin: '#' },
+      {
+        name: 'Ananya Valati',
+        linkedin: '#',
+        photo: '/images/members/cohort-6/ananya.png',
+      },
+      {
+        name: 'Joseph Sabo',
+        linkedin: '#',
+        photo: '/images/members/cohort-6/joseph.png',
+      },
+      {
+        name: 'Riya Jain',
+        linkedin: '#',
+        photo: '/images/members/cohort-6/riya.png',
+      },
+      {
+        name: 'Wakeland Branz',
+        linkedin: '#',
+        photo: '/images/members/cohort-6/wakeland.png',
+      },
+      {
+        name: 'Aryan Gera',
+        linkedin: '#',
+        photo: '/images/members/cohort-6/aryan.jpg',
+      },
+      {
+        name: 'Xiyuan Shen',
+        linkedin: '#',
+        photo: '/images/members/cohort-6/xiyuan.png',
+      },
+      {
+        name: 'Alexandre Tourneux',
+        linkedin: '#',
+        photo: '/images/members/cohort-6/alexandre.jpg',
+      },
+      {
+        name: 'Meghana Kanamurlapudi',
+        linkedin: '#',
+        photo: '/images/members/cohort-6/meghana.png',
+      },
     ],
   },
   {
