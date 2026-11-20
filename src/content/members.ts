@@ -295,7 +295,11 @@ export const cohorts: Cohort[] = [
         linkedin: '#',
         photo: '/images/members/cohort-3/nathan.jpg',
       },
-      { name: "Joel D'Silva", linkedin: '#' },
+      {
+        name: "Joel D'Silva",
+        linkedin: '#',
+        photo: '/images/members/cohort-3/joel.jpg',
+      },
       {
         name: 'Nicolas Zhang',
         linkedin: '#',
