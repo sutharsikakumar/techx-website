@@ -75,4 +75,19 @@
   .body {
     flex-basis: 100%;
   }
+
+  /* Three logos per row on phones, so the wall isn't a very long two-column list. */
+  .wall {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 4px;
+  }
+
+  .cell {
+    padding: 0 6px;
+  }
+
+  .cell img {
+    max-width: 100%;
+    height: auto;
+  }
 }

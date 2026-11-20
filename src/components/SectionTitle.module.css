@@ -2,6 +2,8 @@
   /* Height of one character cell; a bit taller than the heading's line-height so
      descenders (g, y) aren't clipped. The negative margin on .slot gives it back. */
   --cell: 1.2em;
+  /* The heading's line-height; titles with a different one can override it. */
+  --lh: 1.08em;
   opacity: 0;
   transition: opacity 0.4s var(--ease-out);
 }
@@ -20,7 +22,7 @@
 .slot {
   display: inline-block;
   height: var(--cell);
-  margin-block: calc((1.08em - var(--cell)) / 2);
+  margin-block: calc((var(--lh) - var(--cell)) / 2);
   line-height: var(--cell);
   vertical-align: top;
   clip-path: inset(0 -0.5em);

@@ -1,9 +1,9 @@
 .banner {
   position: relative;
-  height: 440px;
+  height: 340px;
   display: flex;
   align-items: flex-end;
-  padding: 0 var(--gutter) 56px;
+  padding: 0 var(--gutter) 48px;
   background:
     linear-gradient(rgb(0 0 0 / 0.15), rgb(0 0 0 / 0.65)),
     var(--black) url('/images/brand/techx-blockfield.png') 50% 30% / cover no-repeat;
@@ -14,12 +14,14 @@
 }
 
 .title {
+  /* Tells the SectionTitle slots this heading's line-height (see SectionTitle.module.css). */
+  --lh: 0.95em;
   margin: 0;
-  font-size: 96px;
+  font-size: 80px;
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.035em;
-  color: var(--alice);
+  color: var(--white);
 }
 
 .directory {
@@ -41,7 +43,24 @@
 }
 
 @media (max-width: 699px) {
+  .directory {
+    padding: 48px var(--gutter) 96px;
+  }
+
+  .cohort + .cohort {
+    margin-top: 56px;
+  }
+
+  .cohortTitle {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+
+  .banner {
+    height: 280px;
+  }
+
   .title {
-    font-size: 56px;
+    font-size: 52px;
   }
 }

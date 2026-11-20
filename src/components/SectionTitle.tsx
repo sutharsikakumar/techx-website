@@ -35,12 +35,15 @@ export function SectionTitle({
   text,
   as: Tag = 'h2',
   className = '',
+  titleClassName = 'heading-xl',
 }: {
   id?: string;
   text: string;
   as?: 'h1' | 'h2';
   /** Class for the wrapper, used by sections to size it in their flex rows. */
   className?: string;
+  /** Class for the heading itself; defaults to the shared section-title style. */
+  titleClassName?: string;
 }) {
   const [ref, inView] = useInView<HTMLDivElement>(0.6);
 
@@ -71,7 +74,7 @@ export function SectionTitle({
 
   return (
     <div ref={ref} className={`${styles.wrap} ${inView ? styles.in : ''} ${className}`} data-reveal>
-      <Tag id={id} className="heading-xl" aria-label={text}>
+      <Tag id={id} className={titleClassName} aria-label={text}>
         <span aria-hidden="true">
           {words.flatMap((el, w) => (w === 0 ? [el] : [' ', el]))}
         </span>

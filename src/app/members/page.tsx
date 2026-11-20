@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CohortGrid } from '@/components/CohortGrid';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { SectionTitle } from '@/components/SectionTitle';
 import { cohorts } from '@/content/members';
 import { toRoman } from '@/lib/toRoman';
 import styles from './page.module.css';
@@ -17,7 +18,12 @@ export default function MembersPage() {
         <section className={styles.banner}>
           <Header current="/members/" />
           <div className={`container ${styles.bannerInner}`}>
-            <h1 className={styles.title}>Members</h1>
+            <SectionTitle
+              as="h1"
+              text="Members"
+
+              titleClassName={styles.title}
+            />
           </div>
         </section>
 

@@ -51,8 +51,11 @@
   transition: color 0.2s ease;
 }
 
-.link:hover,
 .link[aria-current='page'] {
+  color: var(--white);
+}
+
+.link:hover {
   color: var(--cosmix);
 }
 
@@ -94,12 +97,12 @@
   }
 
   .link {
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.12em;
   }
 
   .cta {
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     padding: 0 12px;
   }

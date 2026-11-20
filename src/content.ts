@@ -46,7 +46,8 @@ export const navCta = { label: 'Join Spring Rush' };
 export const nav: { label: string; href: string }[] = [
   { label: 'About', href: '/#mission' },
   { label: 'Members', href: '/members/' },
-  { label: 'Executive Team', href: '/executive-team/' },
+  // Hidden for now; the /executive-team page still exists. Re-add this line to show it:
+  // { label: 'Executive Team', href: '/executive-team/' },
 ];
 
 /* ------------------------------------------------------------------ */
