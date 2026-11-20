@@ -180,16 +180,56 @@ export const cohorts: Cohort[] = [
   {
     number: 5,
     members: [
-      { name: 'Rio Kuchlyan', linkedin: '#' },
-      { name: 'Kennedy Cameron', linkedin: '#' },
-      { name: 'Adhvytha Srigopal', linkedin: '#' },
-      { name: 'Ben Luis', linkedin: '#' },
-      { name: 'Justin Han', linkedin: '#' },
-      { name: 'Conor Jones', linkedin: '#' },
-      { name: 'Sutharsika Kumar', linkedin: '#' },
-      { name: 'Betsy George', linkedin: '#' },
-      { name: 'Ibrahim Mohsin', linkedin: '#' },
-      { name: 'Aditi Nayak', linkedin: '#' },
+      {
+        name: 'Rio Kuchlyan',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/rio.jpg',
+      },
+      {
+        name: 'Kennedy Cameron',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/kennedy.jpg',
+      },
+      {
+        name: 'Adhvytha Srigopal',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/adhvytha.png',
+      },
+      {
+        name: 'Ben Luis',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/ben.jpg',
+      },
+      {
+        name: 'Justin Han',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/justin.jpg',
+      },
+      {
+        name: 'Conor Jones',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/conor.jpg',
+      },
+      {
+        name: 'Sutharsika Kumar',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/sutharsika.jpg',
+      },
+      {
+        name: 'Betsy George',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/betsy.jpg',
+      },
+      {
+        name: 'Ibrahim Mohsin',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/ibrahim.jpg',
+      },
+      {
+        name: 'Aditi Nayak',
+        linkedin: '#',
+        photo: '/images/members/cohort-5/aditi.jpg',
+      },
     ],
   },
   {

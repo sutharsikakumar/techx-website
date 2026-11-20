@@ -1,15 +1,34 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { useInView } from '@/hooks/useInView';
 import styles from './SectionTitle.module.css';
 
 const GLYPHS = '01<>/\\{}[]_+=*#%&';
 
+/** Glyphs each character rolls through before landing; later characters roll longer. */
+const BASE_REEL = 6;
+const MAX_REEL = 24;
+
 /**
- * A section title. When it scrolls into view the
- * title "decodes": random code characters resolve into the real letters, left to right.
- * Screen readers always get the real text; reduced-motion users get no scramble.
+ * Deterministic "random" glyphs, so the server and client render the same reel
+ * (Math.random here would cause a hydration mismatch).
+ */
+function reelFor(charIndex: number, length: number) {
+  const out: string[] = [];
+  let seed = Math.imul(charIndex + 1, 0x9e3779b1);
+  for (let k = 0; k < length; k++) {
+    seed = Math.imul(seed ^ (seed >>> 13), 0x5bd1e995);
+    out.push(GLYPHS[(seed >>> 0) % GLYPHS.length]!);
+  }
+  return out;
+}
+
+/**
+ * A section title. When it scrolls into view, every character slot scrolls vertically
+ * through code glyphs in place, like a slot reel, and the real letters land one by
+ * one, left to right. Screen readers always get the real text; reduced-motion users
+ * see the plain title.
  */
 export function SectionTitle({
   id,
@@ -24,40 +43,38 @@ export function SectionTitle({
   className?: string;
 }) {
   const [ref, inView] = useInView<HTMLDivElement>(0.6);
-  const [display, setDisplay] = useState(text);
 
-  useEffect(() => {
-    if (!inView) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const chars = [...text];
-    const duration = 650 + chars.length * 28;
-    const start = performance.now();
-    let raf = 0;
-    const tick = (now: number) => {
-      const t = (now - start) / duration;
-      if (t >= 1) {
-        setDisplay(text);
-        return;
-      }
-      setDisplay(
-        chars
-          .map((c, i) => {
-            if (c === ' ') return c;
-            const resolvesAt = (i / chars.length) * 0.7 + 0.2;
-            return t >= resolvesAt ? c : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]!;
-          })
-          .join(''),
-      );
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, text]);
+  let i = 0;
+  const words = text.split(' ').map((word, w) => (
+    <span key={w} className={styles.word}>
+      {[...word].map((ch) => {
+        const idx = i++;
+        const reel = reelFor(idx, Math.min(BASE_REEL + idx, MAX_REEL));
+        return (
+          <span key={idx} className={styles.slot}>
+            <span
+              className={styles.strip}
+              style={{ '--i': idx, '--n': reel.length } as CSSProperties}
+            >
+              <span className={styles.reel}>
+                {reel.map((g, k) => (
+                  <span key={k}>{g}</span>
+                ))}
+              </span>
+              {ch}
+            </span>
+          </span>
+        );
+      })}
+    </span>
+  ));
 
   return (
     <div ref={ref} className={`${styles.wrap} ${inView ? styles.in : ''} ${className}`} data-reveal>
       <Tag id={id} className="heading-xl" aria-label={text}>
-        <span aria-hidden="true">{display}</span>
+        <span aria-hidden="true">
+          {words.flatMap((el, w) => (w === 0 ? [el] : [' ', el]))}
+        </span>
       </Tag>
     </div>
   );
