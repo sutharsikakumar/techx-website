@@ -7,7 +7,8 @@
  *   2. Add an entry to that cohort's `members` list below:
  *        { name: 'Jane Doe', linkedin: 'https://www.linkedin.com/in/janedoe', photo: '/images/members/cohort-8/jane-doe.jpg' }
  *      Leave out `photo` to show the placeholder silhouette.
- *   LinkedIn links are '#' until each member's profile URL is filled in.
+ *   LinkedIn links are '#' until each member's profile URL is filled in; until then the
+ *   tile links to a LinkedIn people search for "{name} UNC".
  *
  * Cohorts can be in any order here; the page sorts them newest first.
  */
@@ -19,15 +20,56 @@ export const cohorts: Cohort[] = [
   {
     number: 8,
     members: [
-      { name: 'Maleea Moebes', linkedin: '#' },
-      { name: 'Shom Tailor', linkedin: '#' },
-      { name: 'Josiah Annoh', linkedin: '#' },
-      { name: 'Nikita Chincholkar', linkedin: '#' },
-      { name: 'Micah Edwards', linkedin: '#' },
-      { name: 'Lyla Goldman', linkedin: '#' },
-      { name: 'Rashmi Ruppa', linkedin: '#' },
-      { name: 'Avika Mishra', linkedin: '#' },
-      { name: 'Ruthwik Dhama', linkedin: '#' },
+      {
+        name: 'Maleea Moebes',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/maleea.jpg',
+      },
+      {
+        name: 'Shom Tailor',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/shom.png',
+      },
+      {
+        name: 'Josiah Annoh',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/josiah.png',
+      },
+      {
+        name: 'Nikita Chincholkar',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/nikita.jpg',
+      },
+      {
+        name: 'Micah Edwards',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/micah.png',
+      },
+      {
+        name: 'Lyla Goldman',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/lyla.jpg',
+      },
+      {
+        name: 'Rashmi Ruppa',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/rashmi.jpg',
+      },
+      {
+        name: 'Avika Mishra',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/avika.jpg',
+      },
+      {
+        name: 'Ruthwik Dhama',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/ruthwik.jpg',
+      },
+      {
+        name: 'Sean Chang',
+        linkedin: '#',
+        photo: '/images/members/cohort-8/sean.png',
+      },
     ],
   },
   {

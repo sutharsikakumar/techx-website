@@ -28,6 +28,13 @@
   border-radius: 0;
   background: var(--obsidian);
   color: var(--storm);
+  transition: transform 0.3s var(--ease-out);
+}
+
+/* Linked tiles grow a little on hover/focus; clicking opens LinkedIn. */
+.link:hover .tile,
+.link:focus-visible .tile {
+  transform: scale(1.04);
 }
 
 .name {
@@ -61,5 +68,16 @@
 @media (max-width: 559px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    transition: none;
+  }
+
+  .link:hover .tile,
+  .link:focus-visible .tile {
+    transform: none;
   }
 }

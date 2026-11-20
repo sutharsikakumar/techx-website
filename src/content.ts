@@ -10,10 +10,14 @@
 /* ------------------------------------------------------------------ */
 
 export const links = {
-  rushForm: process.env.NEXT_PUBLIC_RUSH_FORM_URL || '#',
+  rushForm:
+    process.env.NEXT_PUBLIC_RUSH_FORM_URL ||
+    'https://web.groupme.com/join_group/105246901/NtWowGeg',
   instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://www.instagram.com/unctechx/',
   linkedin:
     process.env.NEXT_PUBLIC_LINKEDIN_URL || 'https://www.linkedin.com/company/techx-unc/posts/',
+  heellife:
+    process.env.NEXT_PUBLIC_HEELLIFE_URL || 'https://heellife.unc.edu/organization/unctechx',
 };
 
 /* ------------------------------------------------------------------ */
@@ -275,8 +279,9 @@ export type Company = {
   scale?: number;
 };
 
-export const whereWeWork: { heading: string; companies: Company[] } = {
+export const whereWeWork: { heading: string; body: string; companies: Company[] } = {
   heading: 'Work',
+  body: 'Beyond pursuing our technical goals, we also work at leading companies from around the world.',
   companies: [
     {
       name: 'Google DeepMind',
@@ -533,6 +538,7 @@ export const whereWeWork: { heading: string; companies: Company[] } = {
 export const footer = {
   instagram: { label: '@unctechx', href: links.instagram },
   linkedin: { label: 'TechX', href: links.linkedin },
+  heellife: { label: 'HeelLife', href: links.heellife },
 };
 
 /* ------------------------------------------------------------------ */

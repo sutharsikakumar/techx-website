@@ -34,7 +34,10 @@ export function WhereWeWork() {
   return (
     <section id="where-we-work" className={styles.section} aria-labelledby="work-heading">
       <div className={`container ${styles.stack}`}>
-        <SectionTitle id="work-heading" text={whereWeWork.heading} />
+        <div className={styles.head}>
+          <SectionTitle id="work-heading" text={whereWeWork.heading} className={styles.heading} />
+          <p className={`lede ${styles.body}`}>{whereWeWork.body}</p>
+        </div>
         <Reveal threshold={0.1}>
           <ul className={styles.wall}>
             {whereWeWork.companies.map((c, i) => (

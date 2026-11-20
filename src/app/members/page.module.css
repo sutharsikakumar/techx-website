@@ -1,9 +1,9 @@
 .banner {
   position: relative;
-  height: 560px;
+  height: 440px;
   display: flex;
   align-items: flex-end;
-  padding: 0 var(--gutter) 72px;
+  padding: 0 var(--gutter) 56px;
   background:
     linear-gradient(rgb(0 0 0 / 0.15), rgb(0 0 0 / 0.65)),
     var(--black) url('/images/brand/techx-blockfield.png') 50% 30% / cover no-repeat;

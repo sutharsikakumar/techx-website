@@ -21,12 +21,12 @@ npm run typecheck
 npm run format       # Prettier
 ```
 
-## Links (Spring Rush form, Instagram, LinkedIn)
+## Links (Spring Rush, Instagram, LinkedIn, HeelLife)
 
-Instagram and LinkedIn already point to the real TechX pages (set in `src/content.ts`). The **Join Spring Rush** link points to `#` until you set the form URL:
+All links already point to the real TechX pages (set in `src/content.ts`). **Join Spring Rush** opens the Spring Rush GroupMe. To override any of them:
 
 1. Copy `.env.example` to `.env.local`.
-2. Set `NEXT_PUBLIC_RUSH_FORM_URL=https://forms.gle/...` (the same file can also override the Instagram and LinkedIn URLs).
+2. Set the variable, e.g. `NEXT_PUBLIC_RUSH_FORM_URL=https://...`.
 3. Rebuild.
 
 If you deploy on a host such as Vercel or Netlify, set the same variables in its dashboard.
