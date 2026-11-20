@@ -1,7 +1,7 @@
 .footer {
   background: var(--obsidian);
   color: var(--alice);
-  padding: 140px var(--gutter) 0;
+  padding: 80px var(--gutter) 0;
   overflow: hidden;
 }
 
@@ -12,7 +12,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 16px 48px;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .link {
@@ -33,7 +33,7 @@
 .wordmark {
   position: relative;
   max-width: 1100px;
-  margin: 120px auto -1%;
+  margin: 64px auto -1%;
   aspect-ratio: 2088 / 588;
 }
 
@@ -41,8 +41,8 @@
   position: absolute;
   inset: 0;
   background: var(--storm);
-  -webkit-mask: url('/images/techx-logo-outline.png') center / contain no-repeat;
-  mask: url('/images/techx-logo-outline.png') center / contain no-repeat;
+  -webkit-mask: url('/images/brand/techx-logo-outline.png') center / contain no-repeat;
+  mask: url('/images/brand/techx-logo-outline.png') center / contain no-repeat;
 }
 
 .fill {
@@ -52,21 +52,21 @@
   height: 100%;
   pointer-events: none;
   image-rendering: pixelated;
-  -webkit-mask: url('/images/techx-logo-white.png') center / 97.7% 91.8% no-repeat;
-  mask: url('/images/techx-logo-white.png') center / 97.7% 91.8% no-repeat;
+  -webkit-mask: url('/images/brand/techx-logo-white.png') center / 97.7% 91.8% no-repeat;
+  mask: url('/images/brand/techx-logo-white.png') center / 97.7% 91.8% no-repeat;
 }
 
 @media (max-width: 640px) {
   .footer {
-    padding-top: 96px;
+    padding-top: 56px;
   }
 
   .socials {
-    font-size: 16px;
+    font-size: 14px;
     gap: 8px 32px;
   }
 
   .wordmark {
-    margin-top: 72px;
+    margin-top: 48px;
   }
 }

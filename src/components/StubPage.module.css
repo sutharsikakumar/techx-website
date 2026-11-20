@@ -4,7 +4,7 @@
   display: flex;
   align-items: flex-end;
   padding: 140px var(--gutter) 64px;
-  background: var(--black) url('/images/techx-blockfield.png') 50% 40% / cover no-repeat;
+  background: var(--black) url('/images/brand/techx-blockfield.png') 50% 40% / cover no-repeat;
 }
 
 .bannerInner {

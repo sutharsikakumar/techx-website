@@ -24,7 +24,7 @@
   --gutter: 48px;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-  --heading-xl: clamp(32px, 3.2vw, 46px);
+  --heading-xl: clamp(26px, 2.4vw, 34px);
 }
 
 @media (max-width: 640px) {
@@ -114,18 +114,18 @@ a {
 .heading-xl {
   font-size: var(--heading-xl);
   font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .lede {
-  font-size: 18px;
-  line-height: 1.65;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 @media (max-width: 640px) {
   .lede {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 

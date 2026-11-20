@@ -27,19 +27,14 @@ export const site = {
     'TechX is a society of UNC Chapel Hill students devoted to the craft of building technical systems.',
 };
 
+/** The button at the right end of the header. Its link is `links.rushForm`. */
+export const navCta = { label: 'Join Spring Rush' };
+
 export const nav: { label: string; href: string }[] = [
   { label: 'About', href: '/#mission' },
   { label: 'Members', href: '/members/' },
   { label: 'Executive Team', href: '/executive-team/' },
 ];
-
-/* ------------------------------------------------------------------ */
-/* Hero                                                                */
-/* ------------------------------------------------------------------ */
-
-export const hero = {
-  cta: 'Join Spring Rush',
-};
 
 /* ------------------------------------------------------------------ */
 /* Mission                                                             */
@@ -102,7 +97,7 @@ export const community: { heading: string; body: string; photos: CommunityPhoto[
       height: 640,
     },
     {
-      src: '/images/community/jpeg-image-2.jpg',
+      src: '/images/community/techx-beach-photo-6.jpg',
       alt: 'Four members with their arms around each other on the beach',
       width: 960,
       height: 640,
@@ -123,6 +118,12 @@ export const community: { heading: string; body: string; photos: CommunityPhoto[
       src: '/images/community/techx-beach-26.jpg',
       alt: 'The full group lined up along the shore at the beach trip',
       width: 960,
+      height: 640,
+    },
+    {
+      src: '/images/community/techx-overlook-group.jpg',
+      alt: 'Members posing together on a rocky overlook with mountains behind them',
+      width: 1039,
       height: 640,
     },
     {
@@ -180,6 +181,12 @@ export const community: { heading: string; body: string; photos: CommunityPhoto[
       height: 640,
     },
     {
+      src: '/images/community/techx-fleece-group.jpg',
+      alt: 'A large group of members in black TechX fleeces posing indoors',
+      width: 1099,
+      height: 640,
+    },
+    {
       src: '/images/community/techx-beach-photo-3.jpg',
       alt: 'Three friends smiling in sunglasses on the beach',
       width: 960,
@@ -198,7 +205,7 @@ export const community: { heading: string; body: string; photos: CommunityPhoto[
       height: 640,
     },
     {
-      src: '/images/community/jpeg-image.jpg',
+      src: '/images/community/techx-beach-photo-5.jpg',
       alt: 'Three members posing together on the beach',
       width: 480,
       height: 640,
@@ -216,37 +223,20 @@ export const community: { heading: string; body: string; photos: CommunityPhoto[
 /* What we've built                                                    */
 /* ------------------------------------------------------------------ */
 
-/** A paragraph made of plain strings and `{ bold: '...' }` pieces. */
-export type RichText = (string | { bold: string })[];
-
 export const built: {
   heading: string;
   startups: { name: string; href?: string; image: string }[];
-  paragraphs: RichText[];
 } = {
   heading: "What we've built",
   startups: [
     {
       name: 'Brightstar Ventures',
       href: 'https://www.linkedin.com/company/brightstar-ventures/home/',
-      image: '/images/startup-1-star.jpg',
+      image: '/images/startups/brightstar.jpg',
     },
-    { name: 'Swarm', href: 'https://www.useswarm.co/', image: '/images/startup-2-hex.jpg' },
-    { name: 'Lintel', href: 'https://www.uselintel.com/', image: '/images/startup-3-l.jpg' },
-    // No `href` yet: the tile shows without a link. Add one to make it clickable.
-    { name: 'Speedi', image: '/images/startup-4-speedi.jpg' },
-  ],
-  paragraphs: [
-    [
-      'TechX founders build fast and raise early. Our companies are backed by ',
-      { bold: 'Afore Capital' },
-      ', ',
-      { bold: 'LeapYear' },
-      ', and ',
-      { bold: 'KPMG' },
-      '.',
-    ],
-    ['And this is only the start. There is much more to come.'],
+    { name: 'Swarm', href: 'https://www.useswarm.co/', image: '/images/startups/swarm.jpg' },
+    { name: 'Lintel', href: 'https://www.uselintel.com/', image: '/images/startups/lintel.jpg' },
+    { name: 'Speedi', href: 'https://www.speedi.delivery/', image: '/images/startups/speedi.jpg' },
   ],
 };
 

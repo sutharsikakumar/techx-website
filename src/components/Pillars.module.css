@@ -1,5 +1,5 @@
 .pillars {
-  padding: 104px var(--gutter) 160px;
+  padding: 48px var(--gutter) 88px;
 }
 
 .grid {
@@ -14,8 +14,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 28px 28px 30px;
+  gap: 8px;
+  padding: 22px 22px 24px;
   border-radius: 0;
   background: var(--black);
   color: var(--alice);
@@ -42,15 +42,15 @@
 }
 
 .title {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.015em;
 }
 
 .body {
-  font-size: 14px;
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 /* Effect E: staggered fade-in */
@@ -91,7 +91,7 @@
 
 @media (max-width: 640px) {
   .pillars {
-    padding: 72px var(--gutter) 112px;
+    padding: 40px var(--gutter) 64px;
   }
 }
 

@@ -41,24 +41,43 @@ If you deploy on a host such as Vercel or Netlify, set the same variables in its
 | Mission heading and paragraph | `mission` |
 | Lyceum / Professional Development / Community cards | `pillars` |
 | Community photo strip | `community.photos` |
-| Startup tiles and the text beside them | `built` (use `{ bold: '...' }` for bold names) |
+| Startup tiles | `built` |
 | Company logo wall | `whereWeWork.companies` |
 | Footer social labels and links | `footer` and `links` |
 | Members / Executive Team placeholder text | `stubPages` |
 
+## Where files live
+
+```
+public/                      everything the website serves (committed)
+  fonts/                     Satoshi (Regular, Medium, Bold) + its licence
+  images/
+    brand/                   TechX logos (white, outline) and the hero block-field
+    startups/                square startup tiles: brightstar, swarm, lintel, speedi
+    companies/               cropped logos for the "Where we work" wall
+    community/               web-sized photos for the scrolling strip (~640px tall)
+source-assets/               local only, git-ignored (big originals, design files)
+  community-originals/       full-size photos
+  company-logos-original/    original logo files
+  design-files/              the design export, brief and original brand files
+docs/screenshots/            review screenshots, git-ignored (regenerate as needed)
+src/                         the code (see "How it's built")
+```
+
+Only `public/` ships with the site. `source-assets/` stays on your machine: it holds
+over 100 MB of originals that shouldn't go into git. Its README is the only committed file.
+
 ## Swapping images
 
-All images live in `public/images/`.
-
-- **Community photos:** the strip shows the 20 retreat and beach photos in `public/images/community/`. To add more, shrink the photo first (about 640px tall, JPEG, under ~250 KB; phone photos are often 5-10 MB and would slow the page down), put it in that folder, and add an entry to `community.photos` in `content.ts`:
+- **Community photos:** put a web-sized copy (about 640px tall, JPEG, under ~250 KB; phone photos are often 5-10 MB and would slow the page down) in `public/images/community/`, keep the full-size one in `source-assets/community-originals/`, and add an entry to `community.photos` in `content.ts`:
   ```ts
   { src: '/images/community/kickoff.jpg', alt: 'Members at the fall kickoff', width: 1137, height: 640 },
   ```
-  `width` and `height` are the photo's real pixel size, used to reserve space so nothing jumps while photos load. The scroll speed adjusts automatically to the number of photos. The full-size originals are kept in `Community Originals/` (outside `public/`, so they aren't published). The text beside the heading is `community.body`. Visitors can move the strip by hand (click and drag, swipe on touch, horizontal trackpad scroll, or arrow keys); it pauses while they do and resumes drifting about 2 seconds after they stop.
-- **Startup tiles:** add or change entries in `built.startups` (square images in `public/images/`, about 1000×1000). An entry with an `href` is a clickable tile; one without (Speedi, for now) shows as a plain image. Add `href: 'https://...'` to make it a link.
-- **Company logos:** these are in `public/images/companies/`, cropped to the logo artwork with no extra whitespace. To add one, drop in a PNG cropped the same way, add `{ name, logo, width, height }` to `whereWeWork.companies` in alphabetical order, and use the file's pixel size. Each logo is automatically sized to roughly the same visual weight; add `scale: 1.3` (or similar) to an entry if its logo looks too small. The originals are in `Logo Archive/`.
-- **Hero background** (`techx-blockfield.png`): the hero ripple animation reads this image to work out where the blue blocks are, so if you replace it the animation follows the new image automatically. Keep the blocks on a black background.
-- **Logos:** `techx-logo-white.png` is used in the header and hero and as the footer fill mask. `techx-logo-outline.png` is the footer outline. Keep both at the same aspect ratio as now.
+  `width` and `height` are the photo's real pixel size, used to reserve space so nothing jumps while photos load. The scroll speed adjusts automatically to the number of photos. The text beside the heading is `community.body`. Visitors can move the strip by hand (click and drag, swipe on touch, horizontal trackpad scroll, or arrow keys); it pauses while they do and resumes drifting about 2 seconds after they stop.
+- **Startup tiles:** add or change entries in `built.startups` (square images in `public/images/startups/`, about 1000×1000). An entry with an `href` is a clickable tile; one without shows as a plain image.
+- **Company logos:** these are in `public/images/companies/`, cropped to the logo artwork with no extra whitespace. Use lowercase, hyphenated filenames: some web hosts are case-sensitive, and `Plaid.png` would not match `plaid.png` there. To add one, drop in a PNG cropped the same way, add `{ name, logo, width, height }` to `whereWeWork.companies` in alphabetical order, and use the file's pixel size. Each logo is automatically sized to roughly the same visual weight; add `scale: 1.3` (or similar) to an entry if its logo looks too small. Keep the uncropped original in `source-assets/company-logos-original/`.
+- **Hero background** (`brand/techx-blockfield.png`): the hero ripple animation reads this image to work out where the blue blocks are, so if you replace it the animation follows the new image automatically. Keep the blocks on a black background.
+- **Logos:** `brand/techx-logo-white.png` is used in the header and hero and as the footer fill mask. `brand/techx-logo-outline.png` is the footer outline. Keep both at the same aspect ratio as now.
 
 ## How it's built
 
@@ -99,7 +118,7 @@ The Satoshi fonts are in `public/fonts/`, under the Fontshare Free License (`SAT
 
 ## Checking the build against the design
 
-Screenshots of the build at 1440px and 375px are in [`docs/screenshots/`](docs/screenshots/). These are the places where the build intentionally differs from the design file, or where the design file left something open:
+These are the places where the build intentionally differs from the design file, or where the design file left something open:
 
 1. **Company wall uses logos, not names, with no grid lines and no intro paragraph.** All three changes were requested.
 2. **Pillar cards aren't links.** In the design they linked to `#lyceum` and `#professional-development`, which don't exist on the page. They're `<article>`s now. To make them clickable, add an `href` once those pages exist.

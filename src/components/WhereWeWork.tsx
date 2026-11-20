@@ -3,9 +3,9 @@ import styles from './WhereWeWork.module.css';
 
 // Logos come in very different shapes (square marks vs long wordmarks). Sizing each to
 // roughly the same area, within a max box, makes them look equally weighted.
-const LOGO_AREA = 3600;
-const LOGO_MAX_W = 158;
-const LOGO_MAX_H = 52;
+const LOGO_AREA = 2500;
+const LOGO_MAX_W = 120;
+const LOGO_MAX_H = 38;
 
 function logoSize({ width, height, scale = 1 }: Company) {
   const aspect = width / height;

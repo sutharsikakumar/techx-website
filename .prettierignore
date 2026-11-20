@@ -2,6 +2,7 @@
 out
 node_modules
 public
-Logo Archive
+source-assets
+docs
 *.md
 *.html

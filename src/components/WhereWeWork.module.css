@@ -1,36 +1,39 @@
 .section {
-  padding: 0 var(--gutter) 180px;
+  background: var(--ash);
+  padding: 72px var(--gutter) 80px;
 }
 
 .stack {
   display: flex;
   flex-direction: column;
-  gap: 56px;
+  gap: 32px;
 }
 
 .wall {
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 
 .cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 96px;
-  padding: 0 24px;
+  min-height: 72px;
+  padding: 0 16px;
 }
 
 .cell img {
   max-width: 100%;
   height: auto;
+  /* Logo files have white backgrounds; multiply lets the Ash show through. */
+  mix-blend-mode: multiply;
 }
 
 @media (max-width: 640px) {
   .section {
-    padding-bottom: 120px;
+    padding: 56px var(--gutter) 64px;
   }
 
   .wall {
@@ -38,7 +41,7 @@
   }
 
   .cell {
-    min-height: 88px;
-    padding: 0 16px;
+    min-height: 64px;
+    padding: 0 12px;
   }
 }

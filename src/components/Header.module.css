@@ -43,7 +43,7 @@
   align-items: center;
   color: var(--alice);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -52,6 +52,32 @@
 
 .link:hover {
   color: var(--cosmix);
+}
+
+/* Join Spring Rush: outlined box that fills white on hover. */
+.cta {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--alice);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--alice);
+  background: transparent;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cta:hover {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--obsidian);
 }
 
 /* Phones: logo on its own row, links on a tighter row below. */
@@ -68,5 +94,11 @@
   .link {
     font-size: 11px;
     letter-spacing: 0.12em;
+  }
+
+  .cta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 0 12px;
   }
 }

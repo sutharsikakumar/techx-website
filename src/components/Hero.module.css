@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--gutter);
-  background: var(--black) url('/images/techx-blockfield.png') 50% 0 / auto 130% no-repeat;
+  background: var(--black) url('/images/brand/techx-blockfield.png') 50% 0 / auto 130% no-repeat;
 }
 
 .canvas {
@@ -36,35 +36,8 @@
   height: auto;
 }
 
-.rush {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  min-height: 44px;
-  padding: 0 2px 10px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--alice);
-  border-bottom: 1.5px solid rgb(240 248 255 / 0.7);
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.rush:hover {
-  color: var(--cosmix);
-  border-color: var(--cosmix);
-}
-
 @media (max-width: 640px) {
   .inner {
     gap: 36px;
-  }
-
-  .rush {
-    font-size: 13px;
   }
 }

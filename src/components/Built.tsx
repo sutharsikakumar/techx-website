@@ -1,10 +1,6 @@
 import type { CSSProperties } from 'react';
-import { built, type RichText } from '@/content';
+import { built } from '@/content';
 import styles from './Built.module.css';
-
-function Rich({ parts }: { parts: RichText }) {
-  return parts.map((p, i) => (typeof p === 'string' ? p : <strong key={i}>{p.bold}</strong>));
-}
 
 export function Built() {
   return (
@@ -48,13 +44,6 @@ export function Built() {
               );
             })}
           </ul>
-          <div className={styles.text}>
-            {built.paragraphs.map((p, i) => (
-              <p key={i}>
-                <Rich parts={p} />
-              </p>
-            ))}
-          </div>
         </div>
       </div>
     </section>

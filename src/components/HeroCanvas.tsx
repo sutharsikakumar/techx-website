@@ -5,7 +5,7 @@ import { useDitherCanvas } from '@/hooks/useDitherCanvas';
 import { buildBlockMask, createHeroDraw, type DrawFn } from '@/lib/dither';
 import styles from './Hero.module.css';
 
-const BLOCKFIELD_SRC = '/images/techx-blockfield.png';
+const BLOCKFIELD_SRC = '/images/brand/techx-blockfield.png';
 
 /** Effect A: black ripples flowing left to right across the blue blocks. */
 export function HeroCanvas() {

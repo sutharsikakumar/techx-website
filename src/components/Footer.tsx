@@ -6,8 +6,8 @@ function InstagramIcon() {
   return (
     <svg
       aria-hidden="true"
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -24,14 +24,16 @@ function LinkedInIcon() {
   return (
     <svg
       aria-hidden="true"
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
     >
-      <path d="M5 10v9M5 5.5v.01M10 19v-5.5a3.5 3.5 0 0 1 7 0V19M10 10v9" />
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <path d="M8 10.5v6M11.5 16.5v-6M11.5 13.2a2.5 2.5 0 0 1 5 0v3.3" />
+      <circle cx="8" cy="7.6" r="0.7" fill="currentColor" />
     </svg>
   );
 }

@@ -26,7 +26,7 @@ const PLACEHOLDER_INKS = [
   'var(--storm)',
 ];
 
-const TILE_HEIGHT = 300;
+const TILE_HEIGHT = 240;
 
 function Tiles({ copy }: { copy: boolean }) {
   // The second copy only exists to make the loop seamless, so hide it from screen readers.

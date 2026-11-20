@@ -1,33 +1,21 @@
+# Dependencies and build output
 node_modules/
 .next/
 out/
 next-env.d.ts
 *.tsbuildinfo
-.env*.local
+
+# Environment (copy .env.example to .env.local; never commit real values)
 .env
+.env*.local
+
+# OS / editor
 .DS_Store
 
-# Images, screenshots, and design assets — keep them local
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.webp
-*.svg
-*.ico
-*.bmp
-*.tif
-*.tiff
-*.heic
-*.JPG
-*.JPEG
-*.PNG
+# Local-only source material: big originals and design files that are not part
+# of the website. Only the folder's README is committed.
+source-assets/*
+!source-assets/README.md
 
-public/images/
+# Generated review screenshots
 docs/screenshots/
-Community Originals/
-Logo Archive/
-
-# Design source dumps (not the Next.js site)
-TechX Website Design.html
-Claude TechX Homepage Design.md
