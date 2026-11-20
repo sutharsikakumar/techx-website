@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import type { Member } from '@/content/members';
+import { memberPhotoSrcSet, memberPhotoUrl } from '@/lib/memberPhoto';
 import styles from './CohortGrid.module.css';
 
 function PersonIcon() {
@@ -28,12 +28,17 @@ function Tile({ m }: { m: Member }) {
     <>
       <span className={styles.tile}>
         {m.photo ? (
-          <Image
-            src={m.photo}
-            alt=""
-            fill
-            loading="lazy"
+          // Small WebP copies made by scripts/optimize-member-photos.mjs; the
+          // browser picks 256px or 512px wide depending on tile size and screen density.
+          <img
+            src={memberPhotoUrl(m.photo, 256)}
+            srcSet={memberPhotoSrcSet(m.photo)}
             sizes="(max-width: 559px) 33vw, (max-width: 799px) 25vw, (max-width: 1099px) 20vw, 180px"
+            alt=""
+            width={256}
+            height={320}
+            loading="lazy"
+            decoding="async"
             className={styles.photo}
           />
         ) : (

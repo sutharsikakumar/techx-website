@@ -7,6 +7,9 @@
  *   2. Add an entry to that cohort's `members` list below:
  *        { name: 'Jane Doe', linkedin: 'https://www.linkedin.com/in/janedoe', photo: '/images/members/cohort-8/jane-doe.jpg' }
  *      Leave out `photo` to show the placeholder silhouette.
+ *      Photos are automatically cropped and shrunk to small WebP files before
+ *      `npm run dev` / `npm run build` (scripts/optimize-member-photos.mjs), so
+ *      original-size files are fine here.
  *   LinkedIn links are '#' until each member's profile URL is filled in; until then the
  *   tile links to a LinkedIn people search for "{name} UNC".
  *

@@ -320,6 +320,13 @@ export const whereWeWork: { heading: string; body: string; companies: Company[] 
       height: 121,
     },
     {
+      name: 'Apple',
+      href: 'https://www.apple.com/',
+      logo: '/images/companies/apple-logo.png',
+      width: 960,
+      height: 1140,
+    },
+    {
       name: 'CERN',
       href: 'https://home.cern/',
       logo: '/images/companies/cern.png',
@@ -486,6 +493,13 @@ export const whereWeWork: { heading: string; body: string; companies: Company[] 
       logo: '/images/companies/lenovo.png',
       width: 600,
       height: 194,
+    },
+    {
+      name: 'Honeywell',
+      href: 'https://www.honeywell.com/',
+      logo: '/images/companies/honeywell-logo.png',
+      width: 1280,
+      height: 227,
     },
     {
       name: 'SAS',

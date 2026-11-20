@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/optimize-member-photos.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/optimize-member-photos.mjs",
     "build": "next build",
     "start": "npx serve@14 out",
     "lint": "eslint .",
@@ -23,6 +25,7 @@
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.5",
     "prettier": "3.10.1",
+    "sharp": "0.35.5",
     "typescript": "5.9.3"
   }
 }
