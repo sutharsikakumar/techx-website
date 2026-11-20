@@ -3,8 +3,8 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 28px 16px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 24px 14px;
 }
 
 .link {
@@ -39,8 +39,8 @@
 
 .name {
   display: block;
-  margin-top: 12px;
-  font-size: 15px;
+  margin-top: 10px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.005em;
@@ -59,15 +59,26 @@
   display: block;
 }
 
-@media (max-width: 899px) {
+@media (max-width: 1099px) {
   .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 799px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 559px) {
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px 10px;
+  }
+
+  .name {
+    font-size: 13px;
   }
 }
 

@@ -33,7 +33,7 @@ function Tile({ m }: { m: Member }) {
             alt=""
             fill
             loading="lazy"
-            sizes="(max-width: 559px) 50vw, (max-width: 899px) 33vw, 248px"
+            sizes="(max-width: 559px) 33vw, (max-width: 799px) 25vw, (max-width: 1099px) 20vw, 180px"
             className={styles.photo}
           />
         ) : (

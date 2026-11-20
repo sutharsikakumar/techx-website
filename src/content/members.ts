@@ -285,16 +285,52 @@ export const cohorts: Cohort[] = [
   {
     number: 3,
     members: [
-      { name: 'Grace Odondi', linkedin: '#' },
-      { name: 'Nathan Santiago', linkedin: '#' },
+      {
+        name: 'Grace Odondi',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/grace.jpg',
+      },
+      {
+        name: 'Nathan Santiago',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/nathan.jpg',
+      },
       { name: "Joel D'Silva", linkedin: '#' },
-      { name: 'Nicolas Zhang', linkedin: '#' },
-      { name: 'Krisha Avula', linkedin: '#' },
-      { name: 'Aidan Lee', linkedin: '#' },
-      { name: 'Kerry Creech', linkedin: '#' },
-      { name: 'Advik Arora', linkedin: '#' },
-      { name: 'Owen McAllister', linkedin: '#' },
-      { name: 'Kiara Smith', linkedin: '#' },
+      {
+        name: 'Nicolas Zhang',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/nicolas.jpg',
+      },
+      {
+        name: 'Krisha Avula',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/krisha.jpg',
+      },
+      {
+        name: 'Aidan Lee',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/aiden.jpg',
+      },
+      {
+        name: 'Kerry Creech',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/kerry.png',
+      },
+      {
+        name: 'Advik Arora',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/advik.jpg',
+      },
+      {
+        name: 'Owen McAllister',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/owen.jpg',
+      },
+      {
+        name: 'Kiara Smith',
+        linkedin: '#',
+        photo: '/images/members/cohort-3/kiara.jpg',
+      },
     ],
   },
   {
