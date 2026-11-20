@@ -336,17 +336,61 @@ export const cohorts: Cohort[] = [
   {
     number: 2,
     members: [
-      { name: 'Pranav Kosuri', linkedin: '#' },
-      { name: 'Luke Briden', linkedin: '#' },
-      { name: 'Nicholas Copland', linkedin: '#' },
-      { name: 'Neha Bharadwaj', linkedin: '#' },
-      { name: 'Minjae Kung', linkedin: '#' },
-      { name: 'Sean Blizard', linkedin: '#' },
-      { name: 'Sushant Marella', linkedin: '#' },
-      { name: 'Mihir Sharma', linkedin: '#' },
-      { name: 'Alex Sieni', linkedin: '#' },
-      { name: 'Ansh Aryan', linkedin: '#' },
-      { name: 'Arya Gavande', linkedin: '#' },
+      {
+        name: 'Pranav Kosuri',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/pranav.jpg',
+      },
+      {
+        name: 'Luke Briden',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/luke.jpg',
+      },
+      {
+        name: 'Nicholas Copland',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/nicholas.jpg',
+      },
+      {
+        name: 'Neha Bharadwaj',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/neha.jpg',
+      },
+      {
+        name: 'Minjae Kung',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/minjae.jpg',
+      },
+      {
+        name: 'Sean Blizard',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/sean-blizard.jpg',
+      },
+      {
+        name: 'Sushant Marella',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/sushant.jpg',
+      },
+      {
+        name: 'Mihir Sharma',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/mihir.png',
+      },
+      {
+        name: 'Alex Sieni',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/alex-sieni.jpg',
+      },
+      {
+        name: 'Ansh Aryan',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/ansh.jpg',
+      },
+      {
+        name: 'Arya Gavande',
+        linkedin: '#',
+        photo: '/images/members/cohort-2/arya-gavande.jpg',
+      },
     ],
   },
   {
