@@ -396,24 +396,76 @@ export const cohorts: Cohort[] = [
   {
     number: 1,
     members: [
-      { name: 'Kayla Nesbitt', linkedin: '#' },
-      { name: 'James Dankwah', linkedin: '#' },
-      { name: 'Armaan Punj', linkedin: '#' },
-      { name: 'Thomas Smith', linkedin: '#' },
-      { name: 'Aryan Choudhary', linkedin: '#' },
-      { name: 'Destiny Okonkwo', linkedin: '#' },
-      { name: 'Christopher Arraya', linkedin: '#' },
-      { name: 'David Villavicencio', linkedin: '#' },
-      { name: 'Varun Divi', linkedin: '#' },
-      { name: 'Gillian Zech', linkedin: '#' },
-      { name: 'Thomas Carriero', linkedin: '#' },
+      {
+        name: 'Kayla Nesbitt',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/kayla.jpg',
+      },
+      {
+        name: 'James Dankwah',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/james-dankwah.jpg',
+      },
+      {
+        name: 'Armaan Punj',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/armaan.jpg',
+      },
+      {
+        name: 'Thomas Smith',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/thomas-smith.jpg',
+      },
+      {
+        name: 'Aryan Choudhary',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/aryan-choudhury.jpg',
+      },
+      {
+        name: 'Destiny Okonkwo',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/destiny.jpg',
+      },
+      {
+        name: 'Christopher Arraya',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/chris-arraya.jpg',
+      },
+      {
+        name: 'David Villavicencio',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/david-villa.jpg',
+      },
+      {
+        name: 'Varun Divi',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/varun.jpg',
+      },
+      {
+        name: 'Gillian Zech',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/gillian.jpg',
+      },
+      {
+        name: 'Thomas Carriero',
+        linkedin: '#',
+        photo: '/images/members/cohort-1/thomas.jpg',
+      },
     ],
   },
   {
     number: 0,
     members: [
-      { name: 'Farouk Charkas', linkedin: '#' },
-      { name: 'Hamza Ishaque', linkedin: '#' },
+      {
+        name: 'Farouk Charkas',
+        linkedin: '#',
+        photo: '/images/members/cohort-0/farouk.jpg',
+      },
+      {
+        name: 'Hamza Ishaque',
+        linkedin: '#',
+        photo: '/images/members/cohort-0/hamza.jpg',
+      },
     ],
   },
 ];
