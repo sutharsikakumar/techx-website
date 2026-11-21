@@ -27,7 +27,7 @@ export default function MembersPage() {
           </div>
         </section>
 
-        <div className={styles.directory}>
+        <div className={`${styles.directory} navy-glow`}>
           <div className="container">
             {sorted.map((c) => {
               const label = toRoman(c.number);

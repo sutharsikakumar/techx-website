@@ -277,21 +277,21 @@ export const built: {
     {
       name: 'Comcast Ventures',
       href: 'https://comcastventures.com/',
-      logo: '/images/startups/venture/comcast-ventures.png',
+      logo: '/images/startups/venture/comcast-ventures-white.png',
       width: 543,
       height: 209,
     },
     {
       name: 'Afore Capital',
       href: 'https://www.afore.vc/',
-      logo: '/images/startups/venture/afore-capital.png',
-      width: 720,
-      height: 720,
+      logo: '/images/startups/venture/afore-capital-white.png',
+      width: 607,
+      height: 246,
     },
     {
       name: 'KPMG',
       href: 'https://kpmg.com/',
-      logo: '/images/startups/venture/kpmg.png',
+      logo: '/images/startups/venture/kpmg-white.png',
       width: 1190,
       height: 469,
     },
@@ -534,9 +534,9 @@ export const whereWeWork: { heading: string; body: string; companies: Company[] 
     {
       name: 'Wells Fargo',
       href: 'https://www.wellsfargo.com/',
-      logo: '/images/companies/wells-fargo.png',
-      width: 222,
-      height: 240,
+      logo: '/images/companies/wells-fargo-white.png',
+      width: 190,
+      height: 100,
     },
     {
       name: 'Truist',
@@ -548,9 +548,9 @@ export const whereWeWork: { heading: string; body: string; companies: Company[] 
     {
       name: 'Lenovo',
       href: 'https://www.lenovo.com/',
-      logo: '/images/companies/lenovo.png',
-      width: 600,
-      height: 194,
+      logo: '/images/companies/lenovo-white.png',
+      width: 500,
+      height: 111,
     },
     {
       name: 'Honeywell',

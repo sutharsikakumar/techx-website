@@ -7,6 +7,19 @@
   background: var(--black);
 }
 
+/* Fades the bottom of the hero to pure black so it meets the black content
+   below with no seam. It sits at the bottom of the tall section, so it only
+   overlaps the pinned stage at the very end of the intro. */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  height: 180px;
+  background: linear-gradient(rgb(0 0 0 / 0), var(--black));
+  pointer-events: none;
+}
+
 .stage {
   position: sticky;
   top: 0;

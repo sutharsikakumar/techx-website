@@ -9,7 +9,20 @@
     var(--black) url('/images/brand/techx-blockfield.png') 50% 30% / cover no-repeat;
 }
 
+/* Fades the bottom edge of the banner to pure black so it meets the
+   black directory with no visible seam. Sits under the heading. */
+.banner::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 120px;
+  background: linear-gradient(rgb(0 0 0 / 0), var(--black));
+  pointer-events: none;
+}
+
 .bannerInner {
+  position: relative;
+  z-index: 1;
   width: 100%;
 }
 
@@ -26,7 +39,7 @@
 
 .directory {
   padding: 96px var(--gutter) 160px;
-  background: var(--white);
+  /* Background: the shared .navy-glow class (globals.css). */
 }
 
 .cohort + .cohort {
@@ -39,7 +52,7 @@
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--obsidian);
+  color: var(--white);
 }
 
 @media (max-width: 699px) {

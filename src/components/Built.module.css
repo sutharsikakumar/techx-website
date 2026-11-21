@@ -98,6 +98,8 @@
 
 .backerList img {
   display: block;
+  /* White silhouettes on the black home background. */
+  filter: brightness(0) invert(1);
   transition: transform 0.25s var(--ease-out);
 }
 
