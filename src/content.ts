@@ -56,7 +56,7 @@ export const nav: { label: string; href: string }[] = [
 
 export const mission = {
   heading: "UNC's Premier Tech Society",
-  body: 'TechX is a society of students devoted to the craft of building technical systems. We approach problems with rigor, compete with distinction, and hold each other to a higher standard.',
+  body: 'Established in 2022, TechX is a society of students devoted to the craft of building technical systems. We approach problems with rigor, compete with distinction, and hold each other to a higher standard.',
 };
 
 /* ------------------------------------------------------------------ */
@@ -70,7 +70,7 @@ export const pillars: { title: string; body: string }[] = [
   },
   {
     title: 'Professional Development',
-    body: 'Résumés, interviews and introductions that turn skill into internships, research roles and offers.',
+    body: 'Résumés, interviews and introductions that turn skill into internships, research roles and offers at companies doing transformative work.',
   },
   {
     title: 'Community',
@@ -245,6 +245,11 @@ export const built: {
   heading: string;
   body: string;
   startups: { name: string; href?: string; image: string }[];
+  /** Small logo row under the tiles. Logos live in /public/images/startups/venture/. */
+  backersLabel: string;
+  backers: Company[];
+  /** Text after the last backer logo. */
+  backersMore: string;
 } = {
   heading: 'Building',
   body: 'Startups founded by TechX members have a combined valuation of over $100M and are backed by leading venture capital firms.',
@@ -257,6 +262,38 @@ export const built: {
       name: 'Brightstar Ventures',
       href: 'https://www.linkedin.com/company/brightstar-ventures/home/',
       image: '/images/startups/brightstar.jpg',
+    },
+  ],
+  backersLabel: 'Venture backing from:',
+  backersMore: 'and more.',
+  backers: [
+    {
+      name: 'Khosla Ventures',
+      href: 'https://www.khoslaventures.com/',
+      logo: '/images/startups/venture/khosla-ventures.png',
+      width: 1600,
+      height: 190,
+    },
+    {
+      name: 'Comcast Ventures',
+      href: 'https://comcastventures.com/',
+      logo: '/images/startups/venture/comcast-ventures.png',
+      width: 543,
+      height: 209,
+    },
+    {
+      name: 'Afore Capital',
+      href: 'https://www.afore.vc/',
+      logo: '/images/startups/venture/afore-capital.png',
+      width: 720,
+      height: 720,
+    },
+    {
+      name: 'KPMG',
+      href: 'https://kpmg.com/',
+      logo: '/images/startups/venture/kpmg.png',
+      width: 1190,
+      height: 469,
     },
   ],
 };
@@ -472,6 +509,13 @@ export const whereWeWork: { heading: string; body: string; companies: Company[] 
       logo: '/images/companies/c1.svg.webp',
       width: 3840,
       height: 1378,
+    },
+    {
+      name: 'Nike',
+      href: 'https://www.nike.com/',
+      logo: '/images/companies/nike.svg',
+      width: 688,
+      height: 270,
     },
     {
       name: 'JP Morgan',

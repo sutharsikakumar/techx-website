@@ -72,6 +72,55 @@
   outline-offset: 3px;
 }
 
+/* "Venture backing from:" and a small row of VC logos under the tiles. */
+.backers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+}
+
+.backerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.backerList li,
+.backerList a {
+  display: flex;
+  align-items: center;
+}
+
+.backerList img {
+  display: block;
+  transition: transform 0.25s var(--ease-out);
+}
+
+/* Square badge logos (like Afore) get the same soft corners as the tiles, scaled down.
+   Wordmarks stay square-cornered so letters at the edges aren't clipped. */
+.backerList img.badge {
+  border-radius: 4px;
+}
+
+.backersLabel,
+.backersMore {
+  margin: 0;
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+@media (hover: hover) {
+  .backerList a:hover img,
+  .backerList a:focus-visible img {
+    transform: translateY(-2px);
+  }
+}
+
 @media (max-width: 640px) {
   .heading,
   .body {
@@ -89,7 +138,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .link {
+  .link,
+  .backerList img {
     transition: none;
   }
 

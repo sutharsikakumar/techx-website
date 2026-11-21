@@ -92,7 +92,7 @@ export function Hero() {
         <div className={styles.inner}>
           <h1 className={styles.title}>
             <img
-              src="/images/brand/techx-logo-white.png"
+              src="/images/brand/logo.svg"
               alt="TechX"
               width={1020}
               height={270}

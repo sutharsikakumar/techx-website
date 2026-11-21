@@ -1,8 +1,24 @@
 import type { CSSProperties } from 'react';
-import { built } from '@/content';
+import { built, type Company } from '@/content';
 import { Reveal } from './Reveal';
 import { SectionTitle } from './SectionTitle';
 import styles from './Built.module.css';
+
+// Backer logos are sized to roughly equal area (as on the Work wall), but kept small.
+const BACKER_AREA = 1400;
+const BACKER_MAX_W = 110;
+const BACKER_MAX_H = 30;
+
+function backerSize({ width, height }: Company) {
+  const aspect = width / height;
+  let w = Math.min(BACKER_MAX_W, Math.sqrt(BACKER_AREA * aspect));
+  let h = w / aspect;
+  if (h > BACKER_MAX_H) {
+    h = BACKER_MAX_H;
+    w = h * aspect;
+  }
+  return { width: Math.round(w), height: Math.round(h) };
+}
 
 export function Built() {
   return (
@@ -45,6 +61,40 @@ export function Built() {
             })}
           </ul>
         </Reveal>
+        <div className={styles.backers}>
+          <p className={styles.backersLabel}>{built.backersLabel}</p>
+          <ul className={styles.backerList}>
+            {built.backers.map((b) => {
+              const img = (
+                <img
+                  src={b.logo}
+                  alt={b.href ? '' : b.name}
+                  className={b.width === b.height ? styles.badge : undefined}
+                  {...backerSize(b)}
+                  loading="lazy"
+                  decoding="async"
+                />
+              );
+              return (
+                <li key={b.name}>
+                  {b.href ? (
+                    <a
+                      href={b.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${b.name} (opens in a new tab)`}
+                    >
+                      {img}
+                    </a>
+                  ) : (
+                    img
+                  )}
+                </li>
+              );
+            })}
+            <li className={styles.backersMore}>{built.backersMore}</li>
+          </ul>
+        </div>
       </div>
     </section>
   );
