@@ -1,5 +1,4 @@
 .section {
-  background: var(--ash);
   padding: 44px var(--gutter) 48px;
 }
 
@@ -52,7 +51,9 @@
   text-decoration: none;
 }
 
+/* Logos are dark artwork; on the black home background show them as white silhouettes. */
 .cell img {
+  filter: brightness(0) invert(1);
   transition: transform 0.25s var(--ease-out);
 }
 

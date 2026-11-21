@@ -111,6 +111,54 @@ a {
   margin: 0 auto;
 }
 
+/* Pure-black background with a faint, repeating navy glow.
+   Used by the Members directory and the home page below the hero. */
+.navy-glow {
+  /* Pure black -> navy glow that continues down the page -> pure black.
+     Layers (top to bottom):
+     1. Black fade over the first 260px: keeps the seam with the banner/hero above pure black.
+     2. Black fade over the last 320px: lands cleanly on the footer.
+     3/4. Two glows tiled every 1000px, offset by half a tile and alternating
+        right (65%) / left (30%). Each ellipse is exactly one tile tall (500px
+        radius), so it reaches 0 at the tile edges: no seams, and the two
+        layers overlap so the blue never drops out. First glow is centered
+        380px down. */
+  background-color: var(--black);
+  background-image:
+    linear-gradient(var(--black) 0, var(--black) 80px, rgb(0 0 0 / 0) 260px),
+    linear-gradient(rgb(0 0 0 / 0), var(--black)),
+    radial-gradient(
+      ellipse 70% 500px at 65% 50%,
+      rgb(12 78 125 / 0.32) 0%,
+      rgb(8 50 86 / 0.2) 38%,
+      rgb(3 20 38 / 0.06) 70%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 60% 500px at 30% 50%,
+      rgb(12 78 125 / 0.26) 0%,
+      rgb(8 50 86 / 0.17) 38%,
+      rgb(3 20 38 / 0.05) 70%,
+      transparent 100%
+    );
+  background-size:
+    100% 260px,
+    100% 320px,
+    100% 1000px,
+    100% 1000px;
+  background-position:
+    0 0,
+    0 100%,
+    0 -120px,
+    0 380px;
+  background-repeat: no-repeat, no-repeat, repeat-y, repeat-y;
+}
+
+/* Home page sections that sit on .navy-glow: light text. */
+.home-dark {
+  color: var(--white);
+}
+
 /* Section titles: Satoshi Bold, tight tracking. */
 .heading-xl {
   font-size: var(--heading-xl);

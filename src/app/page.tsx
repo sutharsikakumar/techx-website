@@ -11,11 +11,14 @@ export default function Home() {
     <>
       <main>
         <Hero />
-        <Mission />
-        <Pillars />
-        <Community />
-        <Built />
-        <WhereWeWork />
+        {/* One wrapper so the black + navy glow runs continuously across sections. */}
+        <div className="navy-glow home-dark">
+          <Mission />
+          <Pillars />
+          <Community />
+          <Built />
+          <WhereWeWork />
+        </div>
       </main>
       <Footer />
     </>
