@@ -1,155 +1,93 @@
 # TechX website
 
-The landing page for TechX, UNC Chapel Hill's student tech society. It's built with Next.js and exported as a fully static site, so the `out/` folder can be hosted anywhere (GitHub Pages, Netlify, Vercel, S3).
-
-## Run it
-
-You need Node 20 or newer.
+Landing page for TechX, UNC Chapel Hill's student tech society. Next.js static export (`out/`). Node 20+.
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000, live reload
+npm run dev          # http://localhost:3000
 npm run build        # static site in out/
-npm start            # serve out/ locally to check the build
-```
-
-Checks:
-
-```bash
+npm start            # serve out/
 npm run lint
 npm run typecheck
-npm run format       # Prettier
+npm run format
 ```
 
-## Links (Spring Rush, Instagram, LinkedIn, HeelLife)
+Copy, links, and lists live in [`src/content.ts`](src/content.ts) and [`src/content/members.ts`](src/content/members.ts). Change the words there, not in components.
 
-All links already point to the real TechX pages (set in `src/content.ts`). **Join Spring Rush** opens the Spring Rush GroupMe. To override any of them:
+---
 
-1. Copy `.env.example` to `.env.local`.
-2. Set the variable, e.g. `NEXT_PUBLIC_RUSH_FORM_URL=https://...`.
-3. Rebuild.
+## Brand
 
-If you deploy on a host such as Vercel or Netlify, set the same variables in its dashboard.
+Use only the tokens in [`src/app/globals.css`](src/app/globals.css). Do not introduce new colours or hard-code hex in components.
 
-## Editing content
+| Token | Hex | Use |
+|---|---|---|
+| `--cosmix` | `#38b6ff` | Brand blue. Focus rings, accents, interactive highlights. |
+| `--surf` | `#3ca0db` | Secondary blue. |
+| `--bacteria` | `#437592` | Mid blue. Dither / field colour. |
+| `--storm` | `#46606e` | Muted blue-grey. |
+| `--field-steel` | `#386c95` | Sampled from the hero block field. Dither only. |
+| `--field-steel-dark` | `#284e6c` | Darker field stripe. Dither only. |
+| `--steel` | `#b0bdc5` | Cool grey. |
+| `--glacial` | `#c1cfd4` | Light grey, borders and hairlines. |
+| `--ash` | `#e2e4e5` | Pale grey. |
+| `--alice` | `#f0f8ff` | Off-white / ice. |
+| `--obsidian` | `#0b1215` | Near-black text on light. Theme colour. |
+| `--black` | `#000000` | Hero, navy-glow sections, footer. |
+| `--white` | `#ffffff` | Page background and text on dark. |
 
-**All copy, links and lists are in [`src/content.ts`](src/content.ts).** You never need to touch a component to change what the site says.
+**Type.** Satoshi, self-hosted (`public/fonts/`, Fontshare Free License). Weights in use: Regular 400, Medium 500, Bold 700. Fallback: `-apple-system`, Helvetica Neue, Arial. No italics anywhere — emphasise with **bold**. Section titles use `.heading-xl` (Satoshi Bold, tight tracking). Body copy uses `.lede`.
 
-| To change… | Edit in `content.ts` |
+**Layout.** Max width `--container` (1240px). Side gutter `--gutter` (48px, 20px below 640px). Motion easing `--ease-out`: `cubic-bezier(0.2, 0.8, 0.2, 1)`. Honour `prefers-reduced-motion`.
+
+**Voice.** The organisation is **TechX** (one word). Tagline: *UNC's Premier Tech Society*. Motto: *Via ad Excellentiam*. Hero statement: *We back the minds shaping the future.* Copy is direct and spare. No slang, no exclamation marks, no filler.
+
+**Logo.** White mark for dark surfaces (`public/images/brand/techx-logo-white.png`). Outline mark for the footer (`techx-logo-outline.png`). Keep the existing aspect ratio. Do not recolour the mark.
+
+**Surfaces.** Hero is black with the block-field. Home sections below the hero and the members directory sit on `.navy-glow` (black with a repeating navy glow) and `.home-dark` (light text). Light pages use white / obsidian.
+
+---
+
+## Content
+
+| Change | File |
 |---|---|
-| Nav links | `nav` |
-| Landing intro text (the statement and the Latin motto) | `heroStory` (timing lives in `src/components/Hero.tsx`) |
-| Mission heading and paragraph | `mission` |
-| Lyceum / Professional Development / Community cards | `pillars` |
-| Community photo strip | `community.photos` |
-| Startup tiles | `built` |
-| Company logo wall | `whereWeWork.companies` |
-| Footer social labels and links | `footer` and `links` |
-| Executive Team placeholder text | `stubPages` |
-| Member directory | [`src/content/members.ts`](src/content/members.ts) (see below) |
+| Links (Rush, Instagram, LinkedIn, HeelLife) | `links` in `content.ts` (or `.env.local`, see `.env.example`) |
+| Nav and header CTA | `nav`, `navCta` |
+| Hero statement and motto | `heroStory` |
+| Mission, pillars, community strip, startups, company wall, footer | matching keys in `content.ts` |
+| Member directory | `src/content/members.ts` |
 
-## Where files live
+### Add a member
 
-```
-public/                      everything the website serves (committed)
-  fonts/                     Satoshi (Regular, Medium, Bold) + its licence
-  images/
-    brand/                   TechX logos (white, outline) and the hero block-field
-    startups/                square startup tiles: brightstar, swarm, lintel, speedi
-    companies/               cropped logos for the Work section's logo wall
-    community/               web-sized photos for the scrolling strip (~640px tall)
-    members/cohort-{n}/      member headshots for /members, one folder per cohort
-source-assets/               local only, git-ignored (big originals, design files)
-  community-originals/       full-size photos
-  company-logos-original/    original logo files
-  design-files/              the design export, brief and original brand files
-docs/screenshots/            review screenshots, git-ignored (regenerate as needed)
-src/                         the code (see "How it's built")
+1. Optional portrait: `public/images/members/cohort-{n}/{first-last}.jpg` (or `.png`). Face centred; 4:5 crop. Lowercase, hyphenated names. `npm run dev` / `build` will shrink it.
+2. In that cohort's `members` list:
+
+```ts
+{ name: 'Jane Doe', linkedin: 'https://www.linkedin.com/in/janedoe', photo: '/images/members/cohort-8/jane-doe.jpg' },
 ```
 
-Only `public/` ships with the site. `source-assets/` stays on your machine: it holds
-over 100 MB of originals that shouldn't go into git. Its README is the only committed file.
+Omit `photo` for the silhouette. Add a new `{ number, members }` object for a new cohort; the page sorts newest first.
 
-## Adding a member
+### Images
 
-The directory on `/members` is built from [`src/content/members.ts`](src/content/members.ts).
+Web-sized files go in `public/images/`. Full-size originals stay in `source-assets/` (git-ignored except that folder's README).
 
-1. **Photo (optional):** save a portrait headshot as
-   `public/images/members/cohort-{n}/{first-last}.jpg`, e.g. `public/images/members/cohort-8/jane-doe.jpg`.
-   It's shown cropped to 4:5, so keep the face centred; about 600×750 and under ~150 KB is plenty.
-   Use lowercase, hyphenated filenames.
-2. **Entry:** in `members.ts`, find the cohort (`number: 8` is Cohort VIII, `number: 0` is Cohort 0) and add to its `members` list:
-   ```ts
-   { name: 'Jane Doe', linkedin: 'https://www.linkedin.com/in/janedoe', photo: '/images/members/cohort-8/jane-doe.jpg' },
-   ```
-   - `name`: full name, shown under the tile.
-   - `linkedin`: full profile URL. The tile links here in a new tab.
-   - `photo`: leave it out to show the placeholder silhouette.
-3. **New cohort:** add `{ number: 9, members: [ ... ] }` anywhere in the list. The page sorts cohorts newest first and writes the Roman numeral itself.
+- Community: ~640px tall JPEG, under ~250 KB, then list in `community.photos` with real `width` / `height` and a proper `alt`.
+- Startups: ~1000×1000 in `public/images/startups/`, centred (shown 4:3).
+- Company logos: cropped PNGs, no extra padding, lowercase-hyphen names. Add `{ name, logo, width, height }` to `whereWeWork.companies`. Optional `scale` if a mark looks small.
+- Hero field: `brand/techx-blockfield.png` — blue blocks on black. The ripple reads this file.
 
-## Swapping images
+---
 
-- **Community photos:** put a web-sized copy (about 640px tall, JPEG, under ~250 KB; phone photos are often 5-10 MB and would slow the page down) in `public/images/community/`, keep the full-size one in `source-assets/community-originals/`, and add an entry to `community.photos` in `content.ts`:
-  ```ts
-  { src: '/images/community/kickoff.jpg', alt: 'Members at the fall kickoff', width: 1137, height: 640 },
-  ```
-  `width` and `height` are the photo's real pixel size, used to reserve space so nothing jumps while photos load. The scroll speed adjusts automatically to the number of photos. The text beside the heading is `community.body`. Visitors can move the strip by hand (click and drag, swipe on touch, horizontal trackpad scroll, or arrow keys); it pauses while they do and resumes drifting about 2 seconds after they stop.
-- **Startup tiles:** add or change entries in `built.startups` (images in `public/images/startups/`, about 1000×1000 (shown cropped to 4:3, so keep the logo centred)). An entry with an `href` is a clickable tile; one without shows as a plain image.
-- **Company logos:** these are in `public/images/companies/`, cropped to the logo artwork with no extra whitespace. Use lowercase, hyphenated filenames: some web hosts are case-sensitive, and `Plaid.png` would not match `plaid.png` there. To add one, drop in a PNG cropped the same way, add `{ name, logo, width, height }` to `whereWeWork.companies` at the right spot (the list runs from most to least impressive for SWE/ML, left to right), and use the file's pixel size. Each logo is automatically sized to roughly the same visual weight; add `scale: 1.3` (or similar) to an entry if its logo looks too small. Keep the uncropped original in `source-assets/company-logos-original/`.
-- **Hero background** (`brand/techx-blockfield.png`): the hero ripple animation reads this image to work out where the blue blocks are, so if you replace it the animation follows the new image automatically. Keep the blocks on a black background.
-- **Logos:** `brand/techx-logo-white.png` is used in the header and hero and as the footer fill mask. `brand/techx-logo-outline.png` is the footer outline. Keep both at the same aspect ratio as now.
+## Code standards
 
-## How it's built
-
-```
-src/
-  content.ts               all editable copy, links and lists
-  app/
-    layout.tsx             fonts (Satoshi, self-hosted), metadata
-    globals.css            brand colour variables, base styles, scroll reveal
-    page.tsx               the homepage
-    members/, executive-team/   placeholder ("coming soon") pages
-  components/
-    Header                 transparent header over the hero
-    Hero + HeroCanvas      Effect A: block-field ripples
-    Mission                Effect E: scroll reveal
-    Pillars + PillarCard   Effect B smoke, Effect C hover dither, staggered fade-in
-    HoverDither            Effect C: CSS-only cursor dither (cards and footer)
-    Community + Marquee    photo strip: auto-drifts, draggable by hand
-    Built, WhereWeWork
-    Footer + Wordmark      Effect D: outlined wordmark with rolling dither
-    StubPage               shared layout for the placeholder pages
-  hooks/
-    useDitherCanvas.ts     shared canvas engine (see below)
-    useInView.ts           fire-once IntersectionObserver
-    useCursorVars.ts       writes the cursor position into --mx/--my (no re-renders)
-  lib/dither.ts            Bayer 4×4 matrix and the A, B and D fields, ported from the design file
-```
-
-`useDitherCanvas(draw, { cell, fps, timeOffset, speed, ready })` does the following:
-- sizes the canvas to its element × devicePixelRatio (capped at 2);
-- has `draw` write one RGBA pixel per cell into an offscreen buffer, then scales that up with smoothing off;
-- runs at about 30fps;
-- pauses when the canvas is off-screen or the tab is hidden;
-- draws one static frame under `prefers-reduced-motion`;
-- cleans everything up on unmount.
-
-The Satoshi fonts are in `public/fonts/`, under the Fontshare Free License (`SATOSHI-LICENSE.txt`).
-
-## Checking the build against the design
-
-These are the places where the build intentionally differs from the design file, or where the design file left something open:
-
-1. **Company wall uses logos, not names, with no grid lines and no intro paragraph.** All three changes were requested.
-2. **Pillar cards aren't links.** In the design they linked to `#lyceum` and `#professional-development`, which don't exist on the page. They're `<article>`s now. To make them clickable, add an `href` once those pages exist.
-3. **Footer hover dither uses the design file's values** (2px on a 7px grid and 2px on a 4px grid, with 220px and 120px radii). The outline doc says to reuse the card layers, but the design file uses these denser values, and the design file was treated as the source of truth.
-4. **Mobile sizes aren't in the design**, since it's 1440px only. At 640px and below:
-   - the hero is 720px tall instead of 980px;
-   - the side gutter is 20px;
-   - the header links drop to their own row under the logo;
-   - startups stack;
-   - the logo wall is 2 columns;
-   - body text is 19px.
-5. **Card hover shadow** comes from the design (a slightly deeper shadow, with no movement or lift).
-6. **No favicon.** The white logo would be invisible on light browser tabs, so a dedicated icon is needed.
-7. **Lighthouse hasn't been run.** The biggest likely cost is `techx-blockfield.png` (about 900 KB). Converting it to WebP or AVIF would help, but the canvas mask reads that same file, so test the ripple afterwards.
+- **TypeScript strict.** No `any`. Use `@/` imports. Named exports for components.
+- **Content vs UI.** Strings, URLs, and lists belong in `src/content.ts` or `src/content/members.ts`. Components render; they do not own copy.
+- **CSS.** One CSS module per component. Shared tokens, `.container`, `.heading-xl`, `.lede`, `.navy-glow`, and reveal helpers live in `globals.css`. Colours are `var(--token)` only. New colour → add a named token first and justify it.
+- **HTML.** Semantic elements. Images need `width`, `height`, and `alt`. Use `<img>` (static export, no `next/image`). `:focus-visible` stays the Cosmix ring.
+- **Motion.** Use `--ease-out`. Canvas and CSS animation must pause or freeze under `prefers-reduced-motion`.
+- **Formatting.** Prettier: single quotes, semicolons, trailing commas, print width 100. ESLint is `eslint-config-next`. Run `lint`, `typecheck`, and `format` before a PR.
+- **Files.** `PascalCase.tsx` / `.module.css` for components. Hooks `useX.ts`. Utilities in `src/lib/`. Asset filenames lowercase with hyphens.
+- **Git.** Do not commit `.env.local`, `source-assets/` originals, or `docs/screenshots/`. Do not add secrets. Keep PRs small and on-brand.
+)
