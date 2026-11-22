@@ -71,7 +71,7 @@
   align-items: center;
   transform: scale(var(--logo-scale, 1));
   opacity: var(--logo-op, 1);
-  will-change: transform, opacity;
+  will-change: opacity;
 }
 
 .title img {
