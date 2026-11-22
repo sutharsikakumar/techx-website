@@ -102,6 +102,17 @@ export function createHeroDraw(mask: BlockMask, amount = 0.2, pointer?: Pointer)
     return cells;
   };
 
+  // Per-column / per-row terms, recomputed once per frame (see below).
+  let colSinA = new Float64Array(0);
+  let colCosA = new Float64Array(0);
+  let colSinC = new Float64Array(0);
+  let colCosC = new Float64Array(0);
+  let colBase = new Float64Array(0);
+  let rowSinB = new Float64Array(0);
+  let rowCosB = new Float64Array(0);
+  let rowSinD = new Float64Array(0);
+  let rowCosD = new Float64Array(0);
+
   return (buf, cols, rows, t, info) => {
     const { width: W, cell } = info;
     const list = cellsFor(cols, rows, info);
@@ -111,23 +122,57 @@ export function createHeroDraw(mask: BlockMask, amount = 0.2, pointer?: Pointer)
     if (pointer) pointer.strength += (pointer.target - pointer.strength) * 0.18;
     const spot = pointer && pointer.strength > 0.01 ? pointer : null;
     const SPOT_R = 190;
+
+    // The field is
+    //   v = 0.5 + 0.22·sin(A(x) + B(y)) + 0.12·sin(C(x) + D(y)) − 0.2·exp(−db(x)²) + 0.12·(x/W − 0.5)
+    // Every term depends on x only or y only, and sin(a + b) = sin a·cos b + cos a·sin b,
+    // so the trig runs once per column and once per row instead of once per cell.
+    // Same values (to ~1e-15), so the dither pattern is unchanged; just far cheaper.
+    if (colBase.length !== cols) {
+      colSinA = new Float64Array(cols);
+      colCosA = new Float64Array(cols);
+      colSinC = new Float64Array(cols);
+      colCosC = new Float64Array(cols);
+      colBase = new Float64Array(cols);
+    }
+    if (rowSinB.length !== rows) {
+      rowSinB = new Float64Array(rows);
+      rowCosB = new Float64Array(rows);
+      rowSinD = new Float64Array(rows);
+      rowCosD = new Float64Array(rows);
+    }
+    for (let gx = 0; gx < cols; gx++) {
+      const x = gx * cell;
+      const a = x * 0.0055 - t * 1.1; // long soft waves travelling rightwards
+      const c = x * 0.012 - t * 1.6;
+      colSinA[gx] = Math.sin(a);
+      colCosA[gx] = Math.cos(a);
+      colSinC[gx] = Math.sin(c);
+      colCosC[gx] = Math.cos(c);
+      // a broad soft band that sweeps across, plus a slight left-to-right gradient
+      const db = (x - band) / bw;
+      colBase[gx] = 0.5 - 0.2 * Math.exp(-db * db) + 0.12 * (x / W - 0.5);
+    }
+    for (let gy = 0; gy < rows; gy++) {
+      const y = gy * cell;
+      const wob = 0.9 * Math.sin(y * 0.008 + t * 0.35);
+      const d = y * 0.004;
+      rowSinB[gy] = Math.sin(wob);
+      rowCosB[gy] = Math.cos(wob);
+      rowSinD[gy] = Math.sin(d);
+      rowCosD[gy] = Math.cos(d);
+    }
+
     for (let n = 0; n < list.length; n++) {
       const idx = list[n]!;
       const gx = idx % cols;
       const gy = (idx / cols) | 0;
       const x = gx * cell;
       const y = gy * cell;
-      // long soft waves travelling rightwards
-      const wob = 0.9 * Math.sin(y * 0.008 + t * 0.35);
       let v =
-        0.5 +
-        0.22 * Math.sin(x * 0.0055 - t * 1.1 + wob) +
-        0.12 * Math.sin(x * 0.012 - t * 1.6 + y * 0.004);
-      // a broad soft band that sweeps across
-      const db = (x - band) / bw;
-      v -= 0.2 * Math.exp(-db * db);
-      // slight left-to-right gradient
-      v += 0.12 * (x / W - 0.5);
+        colBase[gx]! +
+        0.22 * (colSinA[gx]! * rowCosB[gy]! + colCosA[gx]! * rowSinB[gy]!) +
+        0.12 * (colSinC[gx]! * rowCosD[gy]! + colCosC[gx]! * rowSinD[gy]!);
       // Cursor spotlight: push the value up near the pointer so the black cells clear
       // away and the blue blocks light up underneath.
       if (spot) {
