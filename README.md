@@ -10,6 +10,7 @@ npm start            # serve out/
 npm run lint
 npm run typecheck
 npm run format
+npm run images:avif  # convert JPG/JPEG images in public/images to AVIF
 ```
 
 Copy, links, and lists live in [`src/content.ts`](src/content.ts) and [`src/content/members.ts`](src/content/members.ts). Change the words there, not in components.
@@ -60,7 +61,7 @@ Use only the tokens in [`src/app/globals.css`](src/app/globals.css). Do not intr
 
 ### Add a member
 
-1. Optional portrait: `public/images/members/cohort-{n}/{first-last}.avif` (or `.jpg`, `.png`). Face centred; 4:5 crop. Lowercase, hyphenated names. `npm run dev` / `build` will shrink it.
+1. Optional portrait: `public/images/members/cohort-{n}/{first-last}.avif` (or `.png`). Face centred; 4:5 crop. Lowercase, hyphenated names. `npm run dev` / `build` will shrink it.
 2. In that cohort's `members` list:
 
 ```ts
@@ -72,6 +73,8 @@ Omit `photo` for the silhouette. Add a new `{ number, members }` object for a ne
 ### Images
 
 Web-sized files go in `public/images/`. Full-size originals stay in `source-assets/` (git-ignored except that folder's README).
+
+To convert JPG/JPEG files anywhere under `public/images/` to AVIF while preserving the originals, run `npm run images:avif`. It creates a same-named `.avif` sibling for each image.
 
 - Community: ~640px tall JPEG, under ~250 KB, then list in `community.photos` with real `width` / `height` and a proper `alt`.
 - Startups: ~1000×1000 in `public/images/startups/`, centred (shown 4:3).
