@@ -8,6 +8,7 @@
     "prebuild": "node scripts/optimize-member-photos.mjs",
     "build": "next build",
     "start": "npx serve@14 out",
+    "images:avif": "node scripts/convert-jpg-to-avif.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",

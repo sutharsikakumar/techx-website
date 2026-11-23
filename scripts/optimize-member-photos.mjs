@@ -4,7 +4,7 @@
  * The site is a static export (`images.unoptimized` in next.config.ts), so Next.js
  * can't resize images at request time. This script does it ahead of time instead:
  * every photo in public/images/members/cohort-{n}/ is cropped to the tile's 4:5 shape
- * and saved as WebP at two widths, into public/images/members-optimized/ (git-ignored).
+ * and saved as AVIF at two widths, into public/images/members-optimized/ (git-ignored).
  *
  * It runs automatically before `npm run dev` and `npm run build`, and only redoes
  * photos that changed. Keep adding original photos to public/images/members/ as usual.
@@ -40,13 +40,13 @@ for (const cohort of await readdir(srcDir, { withFileTypes: true })) {
   await mkdir(outCohort, { recursive: true });
 
   for (const file of await readdir(inCohort)) {
-    if (!/\.(jpe?g|png|webp)$/i.test(file)) continue;
+    if (!/\.(png|avif)$/i.test(file)) continue;
     const src = path.join(inCohort, file);
     const base = path.parse(file).name;
     const srcTime = await mtime(src);
 
     for (const w of WIDTHS) {
-      const out = path.join(outCohort, `${base}-${w}.webp`);
+      const out = path.join(outCohort, `${base}-${w}.avif`);
       if ((await mtime(out)) > srcTime) {
         skipped++;
         continue;
@@ -54,7 +54,7 @@ for (const cohort of await readdir(srcDir, { withFileTypes: true })) {
       await sharp(src)
         .rotate() // respect EXIF orientation from phone photos
         .resize(w, Math.round(w * ASPECT), { fit: 'cover', withoutEnlargement: true })
-        .webp({ quality: QUALITY })
+        .avif({ quality: QUALITY })
         .toFile(out);
       made++;
     }

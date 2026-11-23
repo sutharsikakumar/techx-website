@@ -60,11 +60,11 @@ Use only the tokens in [`src/app/globals.css`](src/app/globals.css). Do not intr
 
 ### Add a member
 
-1. Optional portrait: `public/images/members/cohort-{n}/{first-last}.jpg` (or `.png`). Face centred; 4:5 crop. Lowercase, hyphenated names. `npm run dev` / `build` will shrink it.
+1. Optional portrait: `public/images/members/cohort-{n}/{first-last}.avif` (or `.jpg`, `.png`). Face centred; 4:5 crop. Lowercase, hyphenated names. `npm run dev` / `build` will shrink it.
 2. In that cohort's `members` list:
 
 ```ts
-{ name: 'Jane Doe', linkedin: 'https://www.linkedin.com/in/janedoe', photo: '/images/members/cohort-8/jane-doe.jpg' },
+{ name: 'Jane Doe', linkedin: 'https://www.linkedin.com/in/janedoe', photo: '/images/members/cohort-8/jane-doe.avif' },
 ```
 
 Omit `photo` for the silhouette. Add a new `{ number, members }` object for a new cohort; the page sorts newest first.
