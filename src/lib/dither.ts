@@ -69,6 +69,74 @@ export function buildBlockMask(img: HTMLImageElement): BlockMask {
   return { w: c.width, h: c.height, on };
 }
 
+// Worker version of buildBlockMask: fetch, decode, read pixels and threshold, all off the
+// main thread. Inlined as a string so it needs no bundler support for workers.
+const MASK_WORKER = `self.onmessage = async (e) => {
+  try {
+    const blob = await (await fetch(e.data)).blob();
+    const bmp = await createImageBitmap(blob);
+    const c = new OffscreenCanvas(bmp.width, bmp.height);
+    const x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(bmp, 0, 0);
+    const d = x.getImageData(0, 0, bmp.width, bmp.height).data;
+    const on = new Uint8Array(bmp.width * bmp.height);
+    for (let i = 0, j = 0; i < on.length; i++, j += 4) on[i] = d[j] + d[j + 1] + d[j + 2] > 90 ? 1 : 0;
+    self.postMessage({ w: bmp.width, h: bmp.height, on }, [on.buffer]);
+  } catch (err) {
+    self.postMessage({ error: String(err) });
+  }
+};`;
+
+/** Main-thread fallback: decode off-thread with decode(), then build the mask here. */
+async function loadBlockMaskOnMainThread(src: string): Promise<BlockMask> {
+  const img = new Image();
+  img.src = src;
+  await img.decode();
+  return buildBlockMask(img);
+}
+
+/**
+ * Loads the block-field image and builds its mask without blocking the main thread
+ * (a Web Worker with OffscreenCanvas). Reading 1.5M pixels back from a canvas takes
+ * long enough on the main thread to make the first load feel laggy. Falls back to the
+ * main thread in browsers without worker canvas support. Same result either way.
+ */
+export function loadBlockMask(src: string): Promise<BlockMask> {
+  const canWork =
+    typeof Worker !== 'undefined' &&
+    typeof OffscreenCanvas !== 'undefined' &&
+    typeof createImageBitmap !== 'undefined';
+  if (!canWork) return loadBlockMaskOnMainThread(src);
+  return new Promise((resolve, reject) => {
+    let url = '';
+    let worker: Worker | null = null;
+    const fallback = () => {
+      worker?.terminate();
+      if (url) URL.revokeObjectURL(url);
+      loadBlockMaskOnMainThread(src).then(resolve, reject);
+    };
+    try {
+      url = URL.createObjectURL(new Blob([MASK_WORKER], { type: 'text/javascript' }));
+      worker = new Worker(url);
+    } catch {
+      fallback();
+      return;
+    }
+    worker.onmessage = (e: MessageEvent<BlockMask | { error: string }>) => {
+      if ('error' in e.data) {
+        fallback();
+        return;
+      }
+      worker?.terminate();
+      URL.revokeObjectURL(url);
+      resolve(e.data);
+    };
+    worker.onerror = fallback;
+    // The worker runs from a blob: URL, so it needs an absolute image URL.
+    worker.postMessage(new URL(src, window.location.href).href);
+  });
+}
+
 /**
  * Black cells drawn only over the blue blocks, where a left-to-right
  * flowing field plus the Bayer threshold falls below `amount`.

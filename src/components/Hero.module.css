@@ -2,8 +2,9 @@
    the stage inside it stays pinned to the screen meanwhile. */
 .hero {
   position: relative;
-  height: 320vh;
-  height: 320svh;
+  /* 200vh of pinned scroll; see TIMELINE_SCALE in Hero.tsx before changing. */
+  height: 300vh;
+  height: 300svh;
   background: var(--black);
 }
 
