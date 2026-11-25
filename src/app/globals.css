@@ -45,6 +45,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Black canvas: the overscroll "bounce" past the top or bottom of the page shows this,
+     so it blends with the black hero and footer instead of flashing white. (body keeps its
+     own white background for pages that still use it, such as the stub pages.) */
+  background: var(--black);
 }
 
 @media (prefers-reduced-motion: reduce) {
