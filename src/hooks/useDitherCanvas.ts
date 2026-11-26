@@ -101,13 +101,15 @@ export function useDitherCanvas(draw: DrawFn | null, opts: DitherOptions) {
       }
     };
 
-    // Always draw one frame up front, so reduced-motion users still see the texture.
-    render();
-
+    // Don't draw anything at mount: canvases far below the fold (pillar cards, footer)
+    // would add to the first-load work for nothing. The first frame is drawn as soon as
+    // the canvas comes within 100px of the viewport: by the animation loop, or, when it
+    // isn't running (reduced motion), by the single static frame below.
     const io = new IntersectionObserver(
       (entries) => {
         onScreen = entries.some((e) => e.isIntersecting);
         sync();
+        if (onScreen && !raf) render();
       },
       { rootMargin: '100px' },
     );
@@ -115,7 +117,7 @@ export function useDitherCanvas(draw: DrawFn | null, opts: DitherOptions) {
 
     // Redraw on resize (keeps the static frame correct under reduced motion).
     const ro = new ResizeObserver(() => {
-      if (!raf) render();
+      if (onScreen && !raf) render();
     });
     ro.observe(canvas);
 

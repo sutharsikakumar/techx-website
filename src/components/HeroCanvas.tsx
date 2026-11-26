@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useDitherCanvas } from '@/hooks/useDitherCanvas';
-import { buildBlockMask, createHeroDraw, type BlockMask, type Pointer } from '@/lib/dither';
+import { createHeroDraw, loadBlockMask, type BlockMask, type Pointer } from '@/lib/dither';
 import styles from './Hero.module.css';
 
 const BLOCKFIELD_SRC = '/images/brand/techx-blockfield.png';
@@ -17,13 +17,12 @@ export function HeroCanvas() {
 
   useEffect(() => {
     let cancelled = false;
-    const img = new Image();
-    img.decoding = 'async';
-    img.onload = () => {
-      if (cancelled) return;
-      setMask(buildBlockMask(img));
-    };
-    img.src = BLOCKFIELD_SRC;
+    // Built off the main thread (see loadBlockMask), so the first load doesn't stall.
+    loadBlockMask(BLOCKFIELD_SRC)
+      .then((m) => {
+        if (!cancelled) setMask(m);
+      })
+      .catch(() => undefined); // no mask: the blocks just show without ripples
     return () => {
       cancelled = true;
     };

@@ -69,6 +69,74 @@ export function buildBlockMask(img: HTMLImageElement): BlockMask {
   return { w: c.width, h: c.height, on };
 }
 
+// Worker version of buildBlockMask: fetch, decode, read pixels and threshold, all off the
+// main thread. Inlined as a string so it needs no bundler support for workers.
+const MASK_WORKER = `self.onmessage = async (e) => {
+  try {
+    const blob = await (await fetch(e.data)).blob();
+    const bmp = await createImageBitmap(blob);
+    const c = new OffscreenCanvas(bmp.width, bmp.height);
+    const x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(bmp, 0, 0);
+    const d = x.getImageData(0, 0, bmp.width, bmp.height).data;
+    const on = new Uint8Array(bmp.width * bmp.height);
+    for (let i = 0, j = 0; i < on.length; i++, j += 4) on[i] = d[j] + d[j + 1] + d[j + 2] > 90 ? 1 : 0;
+    self.postMessage({ w: bmp.width, h: bmp.height, on }, [on.buffer]);
+  } catch (err) {
+    self.postMessage({ error: String(err) });
+  }
+};`;
+
+/** Main-thread fallback: decode off-thread with decode(), then build the mask here. */
+async function loadBlockMaskOnMainThread(src: string): Promise<BlockMask> {
+  const img = new Image();
+  img.src = src;
+  await img.decode();
+  return buildBlockMask(img);
+}
+
+/**
+ * Loads the block-field image and builds its mask without blocking the main thread
+ * (a Web Worker with OffscreenCanvas). Reading 1.5M pixels back from a canvas takes
+ * long enough on the main thread to make the first load feel laggy. Falls back to the
+ * main thread in browsers without worker canvas support. Same result either way.
+ */
+export function loadBlockMask(src: string): Promise<BlockMask> {
+  const canWork =
+    typeof Worker !== 'undefined' &&
+    typeof OffscreenCanvas !== 'undefined' &&
+    typeof createImageBitmap !== 'undefined';
+  if (!canWork) return loadBlockMaskOnMainThread(src);
+  return new Promise((resolve, reject) => {
+    let url = '';
+    let worker: Worker | null = null;
+    const fallback = () => {
+      worker?.terminate();
+      if (url) URL.revokeObjectURL(url);
+      loadBlockMaskOnMainThread(src).then(resolve, reject);
+    };
+    try {
+      url = URL.createObjectURL(new Blob([MASK_WORKER], { type: 'text/javascript' }));
+      worker = new Worker(url);
+    } catch {
+      fallback();
+      return;
+    }
+    worker.onmessage = (e: MessageEvent<BlockMask | { error: string }>) => {
+      if ('error' in e.data) {
+        fallback();
+        return;
+      }
+      worker?.terminate();
+      URL.revokeObjectURL(url);
+      resolve(e.data);
+    };
+    worker.onerror = fallback;
+    // The worker runs from a blob: URL, so it needs an absolute image URL.
+    worker.postMessage(new URL(src, window.location.href).href);
+  });
+}
+
 /**
  * Black cells drawn only over the blue blocks, where a left-to-right
  * flowing field plus the Bayer threshold falls below `amount`.
@@ -102,6 +170,17 @@ export function createHeroDraw(mask: BlockMask, amount = 0.2, pointer?: Pointer)
     return cells;
   };
 
+  // Per-column / per-row terms, recomputed once per frame (see below).
+  let colSinA = new Float64Array(0);
+  let colCosA = new Float64Array(0);
+  let colSinC = new Float64Array(0);
+  let colCosC = new Float64Array(0);
+  let colBase = new Float64Array(0);
+  let rowSinB = new Float64Array(0);
+  let rowCosB = new Float64Array(0);
+  let rowSinD = new Float64Array(0);
+  let rowCosD = new Float64Array(0);
+
   return (buf, cols, rows, t, info) => {
     const { width: W, cell } = info;
     const list = cellsFor(cols, rows, info);
@@ -111,23 +190,57 @@ export function createHeroDraw(mask: BlockMask, amount = 0.2, pointer?: Pointer)
     if (pointer) pointer.strength += (pointer.target - pointer.strength) * 0.18;
     const spot = pointer && pointer.strength > 0.01 ? pointer : null;
     const SPOT_R = 190;
+
+    // The field is
+    //   v = 0.5 + 0.22·sin(A(x) + B(y)) + 0.12·sin(C(x) + D(y)) − 0.2·exp(−db(x)²) + 0.12·(x/W − 0.5)
+    // Every term depends on x only or y only, and sin(a + b) = sin a·cos b + cos a·sin b,
+    // so the trig runs once per column and once per row instead of once per cell.
+    // Same values (to ~1e-15), so the dither pattern is unchanged; just far cheaper.
+    if (colBase.length !== cols) {
+      colSinA = new Float64Array(cols);
+      colCosA = new Float64Array(cols);
+      colSinC = new Float64Array(cols);
+      colCosC = new Float64Array(cols);
+      colBase = new Float64Array(cols);
+    }
+    if (rowSinB.length !== rows) {
+      rowSinB = new Float64Array(rows);
+      rowCosB = new Float64Array(rows);
+      rowSinD = new Float64Array(rows);
+      rowCosD = new Float64Array(rows);
+    }
+    for (let gx = 0; gx < cols; gx++) {
+      const x = gx * cell;
+      const a = x * 0.0055 - t * 1.1; // long soft waves travelling rightwards
+      const c = x * 0.012 - t * 1.6;
+      colSinA[gx] = Math.sin(a);
+      colCosA[gx] = Math.cos(a);
+      colSinC[gx] = Math.sin(c);
+      colCosC[gx] = Math.cos(c);
+      // a broad soft band that sweeps across, plus a slight left-to-right gradient
+      const db = (x - band) / bw;
+      colBase[gx] = 0.5 - 0.2 * Math.exp(-db * db) + 0.12 * (x / W - 0.5);
+    }
+    for (let gy = 0; gy < rows; gy++) {
+      const y = gy * cell;
+      const wob = 0.9 * Math.sin(y * 0.008 + t * 0.35);
+      const d = y * 0.004;
+      rowSinB[gy] = Math.sin(wob);
+      rowCosB[gy] = Math.cos(wob);
+      rowSinD[gy] = Math.sin(d);
+      rowCosD[gy] = Math.cos(d);
+    }
+
     for (let n = 0; n < list.length; n++) {
       const idx = list[n]!;
       const gx = idx % cols;
       const gy = (idx / cols) | 0;
       const x = gx * cell;
       const y = gy * cell;
-      // long soft waves travelling rightwards
-      const wob = 0.9 * Math.sin(y * 0.008 + t * 0.35);
       let v =
-        0.5 +
-        0.22 * Math.sin(x * 0.0055 - t * 1.1 + wob) +
-        0.12 * Math.sin(x * 0.012 - t * 1.6 + y * 0.004);
-      // a broad soft band that sweeps across
-      const db = (x - band) / bw;
-      v -= 0.2 * Math.exp(-db * db);
-      // slight left-to-right gradient
-      v += 0.12 * (x / W - 0.5);
+        colBase[gx]! +
+        0.22 * (colSinA[gx]! * rowCosB[gy]! + colCosA[gx]! * rowSinB[gy]!) +
+        0.12 * (colSinC[gx]! * rowCosD[gy]! + colCosC[gx]! * rowSinD[gy]!);
       // Cursor spotlight: push the value up near the pointer so the black cells clear
       // away and the blue blocks light up underneath.
       if (spot) {

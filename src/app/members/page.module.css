@@ -27,8 +27,6 @@
 }
 
 .title {
-  /* Tells the SectionTitle slots this heading's line-height (see SectionTitle.module.css). */
-  --lh: 0.95em;
   margin: 0;
   font-size: 80px;
   font-weight: 700;

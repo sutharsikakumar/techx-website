@@ -74,7 +74,7 @@ function Tiles({ copy }: { copy: boolean }) {
 }
 
 // Auto-scroll speed, in px per second, whatever the number of photos.
-const SCROLL_PX_PER_SEC = 55;
+const SCROLL_PX_PER_SEC = 30;
 
 /** Full-bleed photo strip that scrolls on its own (CSS marquee). */
 export function Community() {
